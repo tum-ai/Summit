@@ -1,69 +1,318 @@
 @import "tailwindcss";
-@import "@tum.ai/ui-kit/tailwind.css";
-@import "@tum.ai/ui-kit/fonts.css";
-@import "@tum.ai/ui-kit/shell.css";
 
-/* The kit's header nav is `overflow-x-auto`, which shows a scrollbar
-   (macOS "always show scrollbars", Windows). Keep it scrollable, hide the bar. */
-header nav[aria-label="Main"] {
-  overflow-y: hidden;
-  scrollbar-width: none;
-}
-header nav[aria-label="Main"]::-webkit-scrollbar {
-  display: none;
-}
-
-/* The kit's mobile menu places its decorative mark at right: -18%, and the
-   panel scrolls, so the menu could be dragged sideways on phones. */
-[role="dialog"][class~="group/menu-panel"] {
-  overflow-x: hidden;
+@theme {
+  --color-ink: #0e0e0c;
+  --color-paper: #f4f1ea;
+  --color-stone: #8a857b;
+  /* Darker stone for small text on paper: #8A857B on #F4F1EA is only 3.3:1 (fails WCAG AA). */
+  --color-stone-deep: #6b675f;
+  --color-steel: #3e4a55;
+  --color-ember: #c8913a;
+  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --ease-film: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Hero photo inside the logomark, placed as on tum-ai.com. */
-.sf-aperture-frame {
-  opacity: 0.5;
-  width: 118vw;
-  bottom: 7rem;
-  right: -34vw;
+:root {
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --bg: var(--color-ink);
+  --fg: var(--color-paper);
+  --gutter: clamp(16px, 4vw, 56px);
+  --bar: clamp(0px, calc((100svh - 100vw / 2.39) / 2), 24svh);
 }
-@media (min-width: 40rem) {
-  .sf-aperture-frame {
-    width: 88vw;
-    right: -22vw;
-  }
-}
-@media (min-width: 64rem) {
-  .sf-aperture-frame {
-    top: calc(var(--header-height) + 1.5rem);
-    bottom: auto;
-    opacity: 1;
-    width: min(58vw, 62rem);
-    right: -6vw;
-  }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .sf-aperture-frame {
-    animation: sf-aperture-in 1.2s var(--ease-brand) both;
-  }
-}
-@keyframes sf-aperture-in {
-  0% {
-    opacity: 0;
-    transform: translateY(3%);
-  }
+/* The active scene sets the page colour; the change is a timed dissolve, not a scroll gradient. */
+html[data-scene="paper"] {
+  --bg: var(--color-paper);
+  --fg: var(--color-ink);
 }
 
-/* People marquee (components/people-marquee.tsx): a swipeable scroller
-   without a visible scrollbar. */
-.sf-marquee {
-  scrollbar-width: none;
-  overscroll-behavior-x: contain;
+html {
+  background: var(--color-ink);
 }
-.sf-marquee::-webkit-scrollbar {
-  display: none;
+body {
+  background: var(--bg);
+  color: var(--fg);
+  transition: background-color 1.4s var(--ease), color 1.4s var(--ease);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
 }
+html:not(.motion) {
+  scroll-behavior: auto;
+}
+::selection {
+  background: var(--color-ember);
+  color: var(--color-ink);
+}
+:focus-visible {
+  outline: 2px solid var(--color-ember);
+  outline-offset: 4px;
+}
+
+/* Credit-sequence small caps */
+.caps {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.scene-label {
+  position: absolute;
+  left: var(--gutter);
+  top: 6.5rem;
+  z-index: 5;
+}
+
+/* ---------- Film grain (global) ---------- */
+.grain {
+  position: fixed;
+  inset: -100%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 1s steps(24) infinite;
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0); }
+  70% { transform: translate(0, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+  100% { transform: translate(0, 0); }
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 45%, rgb(0 0 0 / 0.65) 100%);
+}
+
+/* One grade for placeholder and real footage alike */
+.grade { filter: contrast(1.05) saturate(0.85); }
+.grade-cold { filter: contrast(1.05) saturate(1.15) brightness(0.92); }
+.motion .beat { opacity: 0; visibility: hidden; }
+
+/* ---------- Title-card reveals (only when motion is allowed) ---------- */
+.motion [data-reveal] {
+  opacity: 0;
+  transform: translateY(12px);
+  filter: blur(4px);
+  transition:
+    opacity 0.9s var(--ease) var(--d, 0s),
+    transform 0.9s var(--ease) var(--d, 0s),
+    filter 0.9s var(--ease) var(--d, 0s);
+}
+.motion [data-reveal="rise"] { transform: translateY(24px); }
+.motion [data-reveal].in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* Light comes up on the first coloured scene */
+.motion [data-light] {
+  filter: brightness(0.25) saturate(0);
+  transition: filter 1.6s var(--ease) 0.15s;
+}
+.motion [data-light].in { filter: none; }
+
+/* ---------- Intro title card (first visit only) ---------- */
+.intro { display: none; }
+html[data-intro="play"] .intro {
+  display: grid;
+  place-items: center;
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: #000;
+  animation: introOut 1.5s var(--ease) 2.5s forwards;
+}
+html[data-intro="play"] .intro p {
+  opacity: 0;
+  animation: introCard 1.9s ease-in-out 0.6s forwards;
+}
+html[data-intro="play"] .hero-title {
+  animation: fadeIn 1s var(--ease) 3s both;
+}
+@keyframes introCard {
+  0% { opacity: 0; }
+  26% { opacity: 0.7; }
+  80% { opacity: 0.7; }
+  100% { opacity: 0; }
+}
+@keyframes introOut { to { opacity: 0; visibility: hidden; } }
+@keyframes fadeIn { from { opacity: 0; } }
+
+/* ---------- Nav ---------- */
+.nav {
+  transition: opacity 0.8s var(--ease), color 1.4s var(--ease);
+}
+html[data-hero="on"] .nav:not(:hover):not(:focus-within) { opacity: 0.4; }
+
+/* ---------- Letterbox 2.39:1 ---------- */
+.bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  height: var(--bar);
+  background: #000;
+}
+.bar-top { top: 0; transform-origin: top; }
+.bar-bottom { bottom: 0; transform-origin: bottom; }
+
+/* ---------- Hero placeholder: B/W projector light, grain, flicker, scratch ---------- */
+.ph-archive {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 45%, #44443f 0%, #1a1a18 50%, #050505 100%);
+  animation: flicker 0.25s steps(2) infinite;
+}
+.ph-archive::before {
+  content: "";
+  position: absolute;
+  width: 70vmax;
+  height: 50vmax;
+  left: 15%;
+  top: 10%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(255 255 255 / 0.22), transparent);
+  filter: blur(40px);
+  animation: drift 22s ease-in-out infinite alternate;
+}
+.ph-archive::after {
+  content: "";
+  position: absolute;
+  inset: -100%;
+  opacity: 0.22;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 0.8s steps(12) infinite;
+}
+.ph-scratch {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgb(255 255 255 / 0.35);
+  animation: scratch 7s steps(1) infinite;
+}
+@keyframes flicker {
+  0% { opacity: 1; }
+  50% { opacity: 0.94; }
+}
+@keyframes drift {
+  from { transform: translate(-12%, -6%) scale(1); }
+  to { transform: translate(18%, 10%) scale(1.15); }
+}
+@keyframes scratch {
+  0% { left: 23%; opacity: 0; }
+  12% { left: 23%; opacity: 1; }
+  15% { left: 71%; opacity: 0.6; }
+  18% { opacity: 0; }
+  60% { left: 44%; opacity: 0.8; }
+  62% { opacity: 0; }
+}
+
+/* ---------- Pillar placeholders: muted gradients, a light that moves while "playing" ---------- */
+.ph-tile {
+  position: absolute;
+  inset: 0;
+  background-size: 160% 160%;
+  background-position: 30% 30%;
+  overflow: hidden;
+}
+.ph-tile::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(circle at 30% 30%, rgb(255 236 200 / 0.28), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.25s linear;
+}
+[data-playing="true"] .ph-tile {
+  animation: pan 9s ease-in-out infinite alternate;
+}
+[data-playing="true"] .ph-tile::after {
+  opacity: 1;
+  animation: drift 7s ease-in-out infinite alternate;
+}
+@keyframes pan {
+  to { background-position: 70% 80%; }
+}
+.ph-talent { background-image: linear-gradient(160deg, #141d26 0%, #3e4a55 55%, #7d8f9c 100%); }
+.ph-rolemodels { background-image: linear-gradient(170deg, #1b130b 0%, #7a4f22 55%, #d29b4c 100%); }
+.ph-proximity { background-image: linear-gradient(165deg, #17141f 0%, #4f3d57 50%, #b97f68 100%); }
+.ph-return { background-image: linear-gradient(175deg, #0f1a1b 0%, #3d5853 55%, #b8ae8a 100%); }
+.ph-cold {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 20%, #3e4a55 0%, #1b2128 45%, #0a0c0e 100%);
+}
+.ph-black { position: absolute; inset: 0; background: var(--color-ink); }
+.ph-cold-2 { background: linear-gradient(180deg, #2a323a 0%, #14181c 55%, #08090a 100%); }
+.ph-cta {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 110%, #5a3a1a 0%, #1d1612 40%, #070708 75%);
+}
+
+/* Warm light leak at the edge of hopeful scenes. Never on the void. */
+.leak {
+  position: absolute;
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(200 145 58 / 0.22), transparent);
+  filter: blur(60px);
+  pointer-events: none;
+  animation: drift 28s ease-in-out infinite alternate;
+}
+
+/* Placeholders that must be replaced before launch */
+.todo-dev {
+  outline: 1px dashed var(--color-ember);
+  outline-offset: 6px;
+}
+
+/* ---------- Custom cursor ---------- */
+.has-cursor,
+.has-cursor * { cursor: none !important; }
+.cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 80;
+  pointer-events: none;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 1px solid rgb(244 241 234 / 0.9);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  mix-blend-mode: difference;
+  transition: width 0.4s var(--ease), height 0.4s var(--ease), margin 0.4s var(--ease), opacity 0.3s;
+}
+.cursor[data-state="hover"] { width: 56px; height: 56px; margin: -28px 0 0 -28px; }
+.cursor[data-state="play"] { width: 76px; height: 76px; margin: -38px 0 0 -38px; }
+.cursor span { font-size: 9px; letter-spacing: 0.3em; padding-left: 0.3em; color: #f4f1ea; opacity: 0; transition: opacity 0.3s; }
+.cursor[data-state="play"] span { opacity: 1; }
+
+/* CTA actions stay reachable for keyboard users even before the scrub reveals them */
+.cta-actions:focus-within { opacity: 1 !important; transform: none !important; }
+
+/* ---------- Reduced motion: no scrubs, no autoplay, no smooth scroll ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .sf-marquee-copy[aria-hidden] {
-    display: none;
+  *, *::before, *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
   }
+  .hero-letter { opacity: var(--rm-o); }
 }
