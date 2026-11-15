@@ -246,10 +246,10 @@ html[data-hero="on"] .nav:not(:hover):not(:focus-within) { opacity: 0.4; }
 @keyframes pan {
   to { background-position: 70% 80%; }
 }
-.ph-talent { background-image: linear-gradient(160deg, #141d26 0%, #3e4a55 55%, #7d8f9c 100%); }
-.ph-rolemodels { background-image: linear-gradient(170deg, #1b130b 0%, #7a4f22 55%, #d29b4c 100%); }
-.ph-proximity { background-image: linear-gradient(165deg, #17141f 0%, #4f3d57 50%, #b97f68 100%); }
-.ph-return { background-image: linear-gradient(175deg, #0f1a1b 0%, #3d5853 55%, #b8ae8a 100%); }
+.ph-gather { background-image: linear-gradient(160deg, #141d26 0%, #3e4a55 55%, #7d8f9c 100%); }
+.ph-connect { background-image: linear-gradient(170deg, #1b130b 0%, #7a4f22 55%, #d29b4c 100%); }
+.ph-exposure { background-image: linear-gradient(165deg, #17141f 0%, #4f3d57 50%, #b97f68 100%); }
+.ph-forward { background-image: linear-gradient(175deg, #0f1a1b 0%, #3d5853 55%, #b8ae8a 100%); }
 .ph-cold {
   position: absolute;
   inset: 0;
@@ -280,30 +280,6 @@ html[data-hero="on"] .nav:not(:hover):not(:focus-within) { opacity: 0.4; }
   outline: 1px dashed var(--color-ember);
   outline-offset: 6px;
 }
-
-/* ---------- Custom cursor ---------- */
-.has-cursor,
-.has-cursor * { cursor: none !important; }
-.cursor {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 80;
-  pointer-events: none;
-  width: 36px;
-  height: 36px;
-  margin: -18px 0 0 -18px;
-  border: 1px solid rgb(244 241 234 / 0.9);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  mix-blend-mode: difference;
-  transition: width 0.4s var(--ease), height 0.4s var(--ease), margin 0.4s var(--ease), opacity 0.3s;
-}
-.cursor[data-state="hover"] { width: 56px; height: 56px; margin: -28px 0 0 -28px; }
-.cursor[data-state="play"] { width: 76px; height: 76px; margin: -38px 0 0 -38px; }
-.cursor span { font-size: 9px; letter-spacing: 0.3em; padding-left: 0.3em; color: #f4f1ea; opacity: 0; transition: opacity 0.3s; }
-.cursor[data-state="play"] span { opacity: 1; }
 
 /* CTA actions stay reachable for keyboard users even before the scrub reveals them */
 .cta-actions:focus-within { opacity: 1 !important; transform: none !important; }

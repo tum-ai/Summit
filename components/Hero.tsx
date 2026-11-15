@@ -31,39 +31,34 @@ const rank = order.reduce<number[]>((r, idx, k) => ((r[idx] = k), r), []);
 export default function Hero({ media }: { media: Media }) {
   const root = useRef<HTMLElement>(null);
   const noise = useRef<HTMLCanvasElement>(null);
-  const veil = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const html = document.documentElement;
     const canvas = noise.current!;
     const g = canvas.getContext("2d")!;
-    const veilCanvas = veil.current!;
-    const vg = veilCanvas.getContext("2d")!;
-    const vs = { o: 0 }; // opacity of the page-wide static that carries on after the hero
     let active = true;
     const st = { noise: 0 }; // 0 = clean footage, 1 = pure noise (forward diffusion)
     // One ~20 fps loop draws a fresh frame of dark, monochrome film noise. Runs only while the hero is on screen.
     let img: ImageData, buf: Uint32Array, last = 0;
     const size = () => {
-      canvas.width = veilCanvas.width = Math.ceil(innerWidth / 2);
-      canvas.height = veilCanvas.height = Math.ceil(innerHeight / 2);
+      canvas.width = Math.ceil(innerWidth / 2);
+      canvas.height = Math.ceil(innerHeight / 2);
       img = g.createImageData(canvas.width, canvas.height);
       buf = new Uint32Array(img.data.buffer);
     };
     size();
     addEventListener("resize", size);
     const tick = (time: number) => {
-      if ((!active && vs.o < 0.01) || time - last < 0.05) return;
+      if (!active || time - last < 0.05) return;
       last = time;
-      if (st.noise > 0.01 || vs.o > 0.01) {
+      if (st.noise > 0.01) {
         for (let k = 0; k < buf.length; k++) {
           const r = Math.random();
           const v = (r * r * r * 150) | 0; // mostly near-black, with sparse brighter grains
           buf[k] = 0xff000000 | (v << 16) | (v << 8) | v;
         }
-        if (active) g.putImageData(img, 0, 0);
-        if (vs.o > 0.01) vg.putImageData(img, 0, 0);
+        g.putImageData(img, 0, 0);
       }
     };
     gsap.ticker.add(tick);
@@ -87,14 +82,11 @@ export default function Hero({ media }: { media: Media }) {
       tl.to(q(".bar"), { scaleY: 0, duration: 0.16, ease: "power1.inOut" }, 0)
         .to(q(".cue"), { opacity: 0, duration: 0.04 }, 0)
         .to(q(".media"), { scale: 1.08, yPercent: 6, duration: 0.8 }, 0) // push-in + video moves slower than the frame
-        .to(q(".label"), { opacity: 0, duration: 0.1 }, 0.3)
         // Forward diffusion: the footage is progressively buried in dark grain, which then settles to a faint static.
         .to(st, { noise: 1, duration: 0.3, ease: "power1.in", onUpdate: () => (canvas.style.opacity = String(st.noise)) }, 0.26)
         .set(q(".media"), { autoAlpha: 0 }, 0.57)
-        // Hand-over: the hero's own noise goes to black while the page-wide static (screen-blended, so it only
-        // shows on dark scenes) comes up to the same level. From here on it keeps flickering down the page.
+        // The noise settles to black; the static stays inside the hero and never follows the page.
         .to(q(".dim"), { opacity: 1, duration: 0.18 }, 0.52)
-        .to(vs, { o: 0.5, duration: 0.18, onUpdate: () => (veilCanvas.style.opacity = String(vs.o)) }, 0.52)
         .to(q("h1"), { letterSpacing: "0.14em", duration: 0.6 }, 0.14);
       q(".hero-letter").forEach((el, i) => {
         tl.to(el, { opacity: 0.08, filter: "blur(4px)", duration: 0.2 }, 0.14 + rank[i] * 0.045);
@@ -134,10 +126,6 @@ export default function Hero({ media }: { media: Media }) {
         <canvas ref={noise} aria-hidden className="noise absolute inset-0 h-full w-full opacity-0" />
         <div className="dim absolute inset-0 bg-ink opacity-0" />
 
-        <p className="label caps scene-label text-paper/60" style={{ top: "calc(max(var(--bar), 4.5rem) + 1.5rem)" }}>
-          {copy.hero.label}
-        </p>
-
         <div className="hero-title absolute inset-0 z-[3] grid place-items-center px-[var(--gutter)]">
           <h1
             id="hero-title"
@@ -174,8 +162,6 @@ export default function Hero({ media }: { media: Media }) {
           <span className="caps">{copy.hero.scroll}</span>
         </div>
       </div>
-      {/* Outside the sticky layer (which is its own stacking context) so it blends with the whole page. */}
-      <canvas ref={veil} aria-hidden className="pointer-events-none fixed inset-0 z-[55] h-full w-full opacity-0 mix-blend-screen" />
     </section>
   );
 }

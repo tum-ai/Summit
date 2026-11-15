@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
@@ -42,35 +42,6 @@ export function Intro() {
   return (
     <div className="intro" aria-hidden>
       <p className="caps !text-[12px] text-paper">{copy.intro}</p>
-    </div>
-  );
-}
-
-/** Small ring that grows over interactive things and reads PLAY over pillar tiles. Fine pointers only. */
-export function Cursor() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current!;
-    if (!matchMedia("(hover: hover) and (pointer: fine)").matches || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    document.documentElement.classList.add("has-cursor");
-    const x = gsap.quickTo(el, "x", { duration: 0.35, ease: "power3" });
-    const y = gsap.quickTo(el, "y", { duration: 0.35, ease: "power3" });
-    const move = (e: PointerEvent) => {
-      el.hidden = false;
-      x(e.clientX);
-      y(e.clientY);
-      const t = (e.target as Element).closest?.("[data-cursor], a, button");
-      el.dataset.state = !t ? "" : t.getAttribute("data-cursor") === "play" ? "play" : "hover";
-    };
-    addEventListener("pointermove", move);
-    return () => {
-      removeEventListener("pointermove", move);
-      document.documentElement.classList.remove("has-cursor");
-    };
-  }, []);
-  return (
-    <div ref={ref} className="cursor" hidden aria-hidden>
-      <span>PLAY</span>
     </div>
   );
 }

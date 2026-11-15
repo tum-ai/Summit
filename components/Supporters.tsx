@@ -46,18 +46,32 @@ export default function People() {
   );
 }
 
+// Every wordmark gets the same area (width x height), so wide and compact logos read as equally heavy.
+const AREA = 7200; // px² at desktop size
+const logoHeight = (ratio: number) => Math.round(Math.sqrt(AREA / ratio));
+
 export function Partners() {
   return (
-    <section data-scene="paper" className="px-[var(--gutter)] pb-[14svh] pt-[8svh] text-ink" aria-labelledby="partners-title">
-      <div className="mx-auto max-w-6xl">
+    <section data-scene="paper" className="px-[var(--gutter)] pb-[12svh] pt-[6svh] text-ink [--logo:0.7] md:[--logo:1]" aria-labelledby="partners-title">
+      <div className="mx-auto max-w-7xl">
         <h2 id="partners-title" className="caps text-stone-deep">{s.partnersTitle}</h2>
-        <ul className="mt-10 grid grid-cols-2 items-center gap-x-10 gap-y-10 sm:grid-cols-3 lg:grid-cols-6">
+        <ul className="mt-12 flex flex-wrap items-center justify-center gap-x-[clamp(2rem,6vw,5rem)] gap-y-10 md:justify-between">
           {partners.map((p) => (
             <li key={p.name}>
-              <a href={p.href} target="_blank" rel="noopener noreferrer" className="block opacity-60 transition-opacity duration-500 hover:opacity-100">
+              <a href={p.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-[calc(12px*var(--logo))] opacity-60 transition-opacity duration-500 hover:opacity-100">
                 {/* Monochrome: logos are forced to ink, whatever their own colours */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={base + p.logo} alt={p.name} className="h-7 w-auto max-w-[140px] object-contain brightness-0" />
+                <img
+                  src={base + p.logo}
+                  alt={p.lockup ? "" : p.name}
+                  className="w-auto brightness-0"
+                  style={{ height: `calc(${p.lockup ? 34 : logoHeight(p.ratio)}px * var(--logo))` }}
+                />
+                {p.lockup && (
+                  <span className="font-semibold leading-none tracking-[-0.03em]" style={{ fontSize: "calc(36px * var(--logo))" }}>
+                    {p.name}
+                  </span>
+                )}
               </a>
             </li>
           ))}

@@ -255,3 +255,54 @@ Video (t2v), `video/alps-flyover.mp4`, task `a54d77cc-cd11-4ce2-a6d6-fbc24dc4339
 ```
 Feature-film establishing shot, anamorphic 35mm, low golden sun, atmospheric haze, layered depth from foreground to horizon, slow smooth aerial camera move, no cuts. Aerial helicopter flyover of the Bavarian Alps at golden hour: the camera glides slowly forward over a sharp sunlit limestone ridge of the Wetterstein mountains near the Zugspitze, warm low light on the rock faces, deep blue shadows, soft clouds filling the valleys below, a high mountain lake far beneath. Majestic, calm, no people, no buildings with signs. <period suffix>
 ```
+
+## Pillars v2 (2026-11-13): minimal, one locked palette
+
+Replaces the golden-hour pillars (talent, rolemodels, proximity, return). Direction: Helsing-style landscapes and Anduril-style scale, BFL-style reduction.
+One subject, vast negative space, graphite + fog blue-grey + exactly one amber light per frame. No people, no sunsets.
+
+Keyframes: `POST /v1/flux-3-image`, aspect `3:4`, two variants each in `keyframes/v2/` (sheet: `keyframes/sheet-v2.jpg`). Chosen: gather-b, connect-b, exposure-b, forward-a.
+
+### Image style suffix
+
+```
+Fine-art large-format photograph, quiet and minimal. One subject, vast negative space, strict geometry. Palette locked to three tones: deep graphite near-black (#0E0E0C), cool fog grey-blue (#3E4A55), and a single small point or line of warm amber light (#C8913A), the only warm colour in the frame. Blue hour, overcast, diffuse light, low contrast, matte blacks, fine natural film grain, documentary realism, shot on medium format film. No sunset, no golden hour, no visible sun, no lens flare, no bokeh, no HDR, no glow effects, no people, no faces, no text, no logos.
+```
+
+### gather-b
+
+```
+Overhead aerial photograph looking straight down at a dark, calm sea at night. Six thin pale boat wakes arrive from different directions across the frame and converge on one point slightly below the centre, where a single small boat carries one warm amber light.
+```
+
+### connect-b
+
+```
+A long, thin concrete footbridge seen from far away, spanning a deep valley filled with dense fog; both ends of the bridge disappear into the fog. A single warm amber lamp burns at the middle of the bridge.
+```
+
+### exposure-b
+
+```
+A single tall open doorway in a vast, dark brutalist concrete wall, seen straight on. Warm amber light spills out of the doorway onto the dark floor in front of it as a long, sharp trapezoid. Everything else is in deep shadow.
+```
+
+### forward-a
+
+```
+Very low camera on a flat, empty runway at blue hour in light fog; a single line of small amber centreline lights recedes in perfect one-point perspective to the horizon. Vast pale grey-blue sky above.
+```
+
+### Video (i2v, `hd`, 6 s, `3:4`, no audio), suffix
+
+```
+Locked-off tripod camera, almost still: only a barely perceptible slow push-in. Quiet, meditative, no cuts. Palette stays locked: graphite near-black, cool fog grey-blue, one small warm amber light. Blue hour, overcast, diffuse, matte, fine film grain, documentary realism. No people appear, no sunrise, no lens flare, no text.
+```
+
+- gather (from gather-b): The video begins exactly on the provided image. Seen straight down from high above, the small boat with its amber light sits still at the meeting point; the pale wakes slowly ripple and fade on the dark water, the sea surface moves gently.
+- connect (from connect-b): The video begins exactly on the provided image. Dense fog drifts slowly through the valley beneath and around the bridge, partly veiling and revealing it; the amber lamp on the bridge stays lit and steady.
+- exposure (from exposure-b): The video begins exactly on the provided image. The concrete wall and the open doorway stay still; the warm amber light spilling from the doorway breathes very slightly, faint dust drifts through the beam of light on the floor.
+- forward (from forward-a): The video begins exactly on the provided image. Thin fog drifts slowly low over the empty runway; the amber centreline lights recede steadily to the horizon, a slow, steady forward glide along the centreline.
+
+Video task ids: gather bee0be01-2733-4567-820c-fa4ed94617a5, connect 61fe42fb-5c23-4ce4-b62a-ed4b637dc2e3, exposure 4082de03-74ba-4f7d-aeef-c445ce9678f0, forward c75814ca-85cb-4faf-b0ce-5d8bad0bf90b.
+No colour grade beyond the prompt; encode adds light grain (`noise=alls=4:allf=t`).

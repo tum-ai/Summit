@@ -21,10 +21,10 @@ Media detection runs at build time (`lib/media.ts`); anything missing falls back
 
 ```
 hero-archive.mp4 / .webm / .jpg     B/W archive loop + poster (plays at 0.75x)
-pillar-talent.mp4 / .webm / .jpg
-pillar-rolemodels.mp4 / .webm / .jpg
-pillar-proximity.mp4 / .webm / .jpg
-pillar-return.mp4 / .webm / .jpg
+pillar-gather.mp4 / .webm / .jpg
+pillar-connect.mp4 / .webm / .jpg
+pillar-exposure.mp4 / .webm / .jpg
+pillar-forward.mp4 / .webm / .jpg
 cta.mp4 / .webm / .jpg              optional
 ```
 

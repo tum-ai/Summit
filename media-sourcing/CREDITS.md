@@ -38,37 +38,10 @@ Real footage used:
 - Shot 11: Berlin, crowd in front of the Reichstag on the night of reunification, 3 Oct 1990, colour. "Der Tag der Deutschen Einheit",
   Heide Breitel, Wir waren so frei, https://wir-waren-so-frei.de/index.php/Detail/Object/Show/object_id/4290. CC BY-SA 3.0 DE. Timecode 03:14.30–03:16.26.
 
-## crisis-exchange.mp4 / .webm / .jpg
-- Source: https://commons.wikimedia.org/wiki/File:5k-resolution_video_of_Frankfurt,_Germany_2014-02-02.webm
-- Title: "5k-resolution video of Frankfurt, Germany 2014-02-02" (Frankfurt skyline over the Main, seen from the Deutschherrnbrücke)
-- Author: #Reaper (Wikimedia Commons user Reaper35)
-- Licence: CC BY-SA 3.0, https://creativecommons.org/licenses/by-sa/3.0. This derivative is shared under CC BY-SA 3.0.
-- Timecodes used: 00:06.0–00:16.8 (loop = 00:06.8–00:16.8, its last 0.8 s crossfaded into 00:06.0–00:06.8)
-- Changes: cropped 5120×2700 → 16:9 (centre), scaled to 1920×1080, cold grade (saturation 0.35, steel-blue balance, low contrast), light grain, no audio.
 
-## pillar-talent.mp4 / .webm / .jpg
-- Generated with FLUX 3 by Black Forest Labs (FLUX 3 Image keyframe + FLUX 3 Video image-to-video, https://api.bfl.ai). No third-party footage.
-- Subject: robotics lab in Munich at early morning, engineer seen from behind. Prompts, task ids and grade: `media-sourcing/flux/PROMPTS.md`.
-- Timecodes used: generated clip 00:00.0–00:06.0 (loop = 00:00.8–end, crossfaded into 00:00.0–00:00.8)
-- Changes: scaled/cropped to 900×1200, shared Act III grade, no audio.
 
-## pillar-rolemodels.mp4 / .webm / .jpg
-- Generated with FLUX 3 by Black Forest Labs (FLUX 3 Image keyframe + FLUX 3 Video image-to-video, https://api.bfl.ai). No third-party footage.
-- Subject: two figures walking up a San Francisco street at golden hour, seen from behind. Prompts, task ids and grade: `media-sourcing/flux/PROMPTS.md`.
-- Timecodes used: generated clip 00:00.0–00:06.0 (loop = 00:00.8–end, crossfaded into 00:00.0–00:00.8)
-- Changes: scaled/cropped to 900×1200, shared Act III grade, no audio.
 
-## pillar-proximity.mp4 / .webm / .jpg
-- Generated with FLUX 3 by Black Forest Labs (FLUX 3 Image keyframe + FLUX 3 Video image-to-video, https://api.bfl.ai). No third-party footage.
-- Subject: long dinner table at golden hour, guests out of focus. Prompts, task ids and grade: `media-sourcing/flux/PROMPTS.md`.
-- Timecodes used: generated clip 00:00.0–00:06.0 (loop = 00:00.8–end, crossfaded into 00:00.0–00:00.8)
-- Changes: scaled/cropped to 900×1200, shared Act III grade, no audio.
 
-## pillar-return.mp4 / .webm / .jpg
-- Generated with FLUX 3 by Black Forest Labs (FLUX 3 Image keyframe + FLUX 3 Video image-to-video, https://api.bfl.ai). No third-party footage.
-- Subject: airplane window at sunrise over the Alps. Prompts, task ids and grade: `media-sourcing/flux/PROMPTS.md`.
-- Timecodes used: generated clip 00:00.0–00:06.0 (loop = 00:00.8–end, crossfaded into 00:00.0–00:00.8)
-- Changes: scaled/cropped to 900×1200, shared Act III grade, no audio.
 
 ## cta.mp4 / .webm / .jpg
 - Generated with FLUX 3 by Black Forest Labs (FLUX 3 Image keyframe + FLUX 3 Video image-to-video, https://api.bfl.ai). No third-party footage.
@@ -76,16 +49,17 @@ Real footage used:
 - Timecodes used: generated clip 00:00.0–00:11.0 (loop = 00:00.8–end, crossfaded into 00:00.0–00:00.8)
 - Changes: cropped to 1920×1080, shared Act III grade plus a darkening curve, no audio.
 
-## crisis-industry.mp4 / .webm / .jpg
-- Generated with FLUX 3 by Black Forest Labs (FLUX 3 Image keyframe + FLUX 3 Video image-to-video, https://api.bfl.ai). No third-party footage.
-- Subject: empty factory hall with an idle assembly line, overcast light. Prompts, task ids and grade: `media-sourcing/flux/PROMPTS.md`.
-- Timecodes used: generated clip 00:00.0–00:09.0 (loop = 00:00.8–end, crossfaded into 00:00.0–00:00.8)
-- Changes: cropped to 1920×1080, cold Act II grade, no audio.
 
 ## Footer attribution text
 
-Archive footage: Hans Peter Ruben and Heide Breitel, "Wir waren so frei" (Deutsche Kinemathek / bpb), CC BY-SA 3.0 DE ·
-"5k-resolution video of Frankfurt" © #Reaper, CC BY-SA 3.0, via Wikimedia Commons.
+Archive footage: Hans Peter Ruben and Heide Breitel, "Wir waren so frei" (Deutsche Kinemathek / bpb), CC BY-SA 3.0 DE.
 Cropped, recoloured and re-edited; the edited clips are shared under the same CC BY-SA licences.
-Pillar, factory and closing footage, and the dramatized city, coast, Alps and POV shots in the opening montage, generated with FLUX 3 by Black Forest Labs.
+Pillar and closing footage, and the dramatized city, coast, Alps and POV shots in the opening montage, generated with FLUX 3 by Black Forest Labs.
 Car footage: "Two Porsche 911 Targa driving as viewed from FPV drone" © SE FPV, CC BY 3.0, via Wikimedia Commons.
+
+## pillar-gather / pillar-connect / pillar-exposure / pillar-forward (.mp4 / .webm / .jpg)
+- Generated with FLUX 3 by Black Forest Labs (FLUX 3 Image keyframe + FLUX 3 Video image-to-video, https://api.bfl.ai). No third-party footage.
+- Subjects: converging boat wakes at night (gather), footbridge in fog (connect), lit doorway in a concrete wall (exposure), runway centreline lights in fog (forward).
+  Prompts, style suffix and task ids: `media-sourcing/flux/PROMPTS.md` (section "Pillars v2").
+- Loop: 6 s clip, 00:00.8–end with its last 0.8 s crossfaded into 00:00.0–00:00.8. Scaled/cropped to 900×1200, 24 fps, light grain, no audio.
+
