@@ -6,6 +6,10 @@ import { copy } from "@/content/copy";
 
 const s = copy.summit;
 
+/** Renders **…** in copy as emphasis. */
+const rich = (t: string) =>
+  t.split(/\*\*(.+?)\*\*/g).map((part, i) => (i % 2 ? <strong key={i} className="font-medium text-paper">{part}</strong> : part));
+
 export default function Pillars({ media }: { media: Media[] }) {
   const [active, setActive] = useState<number | null>(null);
   const tiles = useRef<(HTMLElement | null)[]>([]);
@@ -44,7 +48,7 @@ export default function Pillars({ media }: { media: Media[] }) {
               style={{ "--d": `${0.4 + i * 0.5}s` } as React.CSSProperties}
               className="mx-auto mt-6 max-w-[40ch] text-balance text-[clamp(1.1rem,1.9vw,1.75rem)] font-light leading-snug text-paper/75"
             >
-              {line}
+              {rich(line)}
             </p>
           ))}
         </div>
@@ -58,7 +62,6 @@ export default function Pillars({ media }: { media: Media[] }) {
                 tiles.current[i] = el;
               }}
               tabIndex={0}
-              data-cursor="play"
               aria-label={`${p.title}. ${p.text}`}
               onMouseEnter={() => setActive(i)}
               onMouseLeave={() => setActive((a) => (a === i ? null : a))}
@@ -76,7 +79,9 @@ export default function Pillars({ media }: { media: Media[] }) {
               <span className="caps absolute left-5 top-5 text-paper/60 tabular-nums">0{i + 1}</span>
               <div className="absolute inset-x-5 bottom-5" aria-hidden>
                 <h3 className="text-[clamp(1.35rem,1.8vw,1.9rem)] font-medium tracking-[-0.01em]">{p.title}</h3>
-                <p className="mt-2 max-w-[30ch] text-sm leading-relaxed text-paper/75">{p.text}</p>
+                {/* Same reserved height in every tile (text box + source line), so titles and sources line up across the row. */}
+                <p className="mt-2 min-h-[5lh] max-w-[30ch] text-sm leading-relaxed text-paper/75">{p.text}</p>
+                <p className="caps mt-4 !text-[9px] !tracking-[0.2em] text-paper/45">{p.source ? `— ${p.source}` : " "}</p>
               </div>
             </article>
           </li>

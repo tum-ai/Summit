@@ -6,13 +6,10 @@ const dev = process.env.NODE_ENV !== "production";
 /** Compact proof: one statement, one closer, four facts. No held screens. */
 export default function About() {
   return (
-    <section data-scene="paper" className="relative px-[var(--gutter)] pb-[6svh] pt-[16svh] text-ink" aria-labelledby="about-title">
-      <p className="caps scene-label !top-8 text-stone-deep">{a.label}</p>
-
+    <section data-scene="paper" className="relative px-[var(--gutter)] pb-[6svh] pt-[16svh] text-ink" aria-label={a.title}>
       <div className="mx-auto max-w-6xl">
-        <h2 id="about-title" className="sr-only">{a.title}</h2>
-        {a.body.map((t) => (
-          <p key={t} data-reveal className="max-w-[34ch] text-[clamp(1.5rem,3vw,3rem)] leading-[1.14] tracking-[-0.02em]">{t}</p>
+        {a.body.map((t, i) => (
+          <p key={i} data-reveal className="max-w-[34ch] text-[clamp(1.5rem,3vw,3rem)] leading-[1.14] tracking-[-0.02em]">{t}</p>
         ))}
         <p data-reveal style={{ "--d": "0.3s" } as React.CSSProperties} className="mt-8 text-[clamp(1.5rem,3vw,3rem)] font-medium leading-[1.14] tracking-[-0.02em]">
           {a.closer}
