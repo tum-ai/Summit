@@ -1,78 +1,49 @@
-# TUM.ai Summit
+# TUM.ai SF Summit
 
-Landing page for the **TUM.ai Summit** in San Francisco. The event has two tracks: talks and panels
-with German founders, operators and investors who built in the Bay, and a hackathon where builders
-from TUM.ai and the Bay Area ship real products in one weekend.
+Single-page site, Next.js (App Router, static export) + Tailwind v4 + GSAP ScrollTrigger + Lenis.
 
-**Live:** https://summit.tum-ai.com
-
-## Stack
-
-- [Next.js 16](https://nextjs.org) App Router, statically exported (`output: "export"`)
-- React 19 and Tailwind CSS 4
-- [`@tum.ai/ui-kit`](https://www.npmjs.com/package/@tum.ai/ui-kit), the TUM.ai design system
-  (sections, cards, header and footer)
-- Hosted on Vercel (team `tum-ai`, project `summit`)
-
-> Next.js 16 breaks several APIs from earlier versions. Read [`AGENTS.md`](AGENTS.md) before you
-> change framework code.
-
-## Getting started
-
-Requires Node.js 22 or newer.
+## Run
 
 ```bash
-npm ci
-npm run dev    # http://localhost:3000
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # static site in ./out (Vercel, GitHub Pages, any static host)
+npm start          # serve ./out locally
 ```
 
-| Command         | What it does                                        |
-| --------------- | --------------------------------------------------- |
-| `npm run dev`   | Dev server with hot reload                          |
-| `npm run build` | Static export to `out/`                             |
-| `npm run lint`  | ESLint (Next.js core-web-vitals + TypeScript rules) |
+GitHub Pages under a sub-path: `NEXT_PUBLIC_BASE_PATH=/repo-name npm run build`.
+Set `NEXT_PUBLIC_SITE_URL=https://your-domain` so OG image URLs are absolute.
 
-## Project layout
+## Media
+
+Drop files into `public/media/` with exactly these names, then rebuild. No code changes.
+Media detection runs at build time (`lib/media.ts`); anything missing falls back to a designed placeholder.
 
 ```
-app/          root layout, the page, global styles
-components/   page-specific sections: hero, about, people marquee
-content/      event.ts, all page copy and data
-lib/          asset() helper for files in public/
-public/       images: people/, logos/, hero and brand assets
+hero-archive.mp4 / .webm / .jpg     B/W archive loop + poster (plays at 0.75x)
+pillar-talent.mp4 / .webm / .jpg
+pillar-rolemodels.mp4 / .webm / .jpg
+pillar-proximity.mp4 / .webm / .jpg
+pillar-return.mp4 / .webm / .jpg
+cta.mp4 / .webm / .jpg              optional
 ```
 
-## Editing content
+Sourcing and encoding specs: `media-sourcing/REQUIREMENTS.md`. Licences of sourced clips: `media-sourcing/CREDITS.md`.
+Keep the footer credits (`content/copy.ts` → `footer.credits`) in sync with what is actually used.
 
-Almost every change happens in [`content/event.ts`](content/event.ts). It holds the hero copy, the
-stats (with their sources), tracks, partners, people and the contact address. Entries marked `TODO`
-are placeholders that still need confirming.
+## Edit content
 
-**Add a person** (speaker, advisor, jury or organizer). Put their photo in `public/people/`, then add
-an entry to the matching list:
+- All copy: `content/copy.ts`
+- Supporters and partner logos: `content/supporters.ts` (images go in `public/`, e.g. `public/supporters/name.jpg`)
+- Impressum / Datenschutz: `app/impressum/page.tsx`, `app/datenschutz/page.tsx`
+- Colours, grain, letterbox, placeholders: `app/globals.css`
 
-```ts
-{
-  name: "Ada Lovelace",
-  byline: "Founder, Example",
-  image: asset("/people/Ada.jpg"),
-  linkedin: "https://www.linkedin.com/in/…/",
-},
-```
+Everything marked `[TODO]` is a placeholder. In `npm run dev` it is outlined with a dashed ember line.
 
-**Add a partner.** Put the logo SVG in `public/logos/`, then add an entry to `partners`. Set
-`aspectRatio` to the logo's width divided by its height. A logo that is only a mark, with no name in
-the artwork, also needs a `wordmark` so the name appears beside it.
+## How the film works
 
-Reference files in `public/` through `asset()`, never as bare `"/…"` strings, so paths keep working
-if the site is ever served under a sub-path.
-
-## Deployment
-
-Vercel deploys the site through its GitHub integration:
-
-- A push to `main` deploys to production at https://summit.tum-ai.com.
-- A pull request or any other branch gets a preview deployment, linked on the PR.
-
-No environment variables are needed. `summit.tum-ai.com` is a CNAME to Vercel in the tum-ai.com
-zone, which is hosted on Netlify DNS.
+- `components/Hero.tsx`: sticky 300svh scene. One scrubbed GSAP timeline: letterbox opens, camera pushes in, letters decay in a seeded order, footage dissolves to paper. Scrolling back reverses it.
+- `components/Chrome.tsx`: `Motion` runs Lenis, title-card reveals (`data-reveal`), count-ups (`data-count`), the light-up (`data-light`) and the scene colour. Each section has `data-scene="ink|paper"`; when it crosses mid-viewport the page colour dissolves over 1.4s (a cut, not a scroll gradient).
+- `components/CTA.tsx`: the letterbox closes as the final line lands.
+- Intro title card: first visit per session, CSS-timed (`globals.css`, `.intro`), skipped by any input.
+- `prefers-reduced-motion`: no scrubs, no autoplay, no Lenis, no intro; hero shows a partially faded word.
