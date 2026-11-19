@@ -39,9 +39,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# media sourcing: raw downloads, generated masters and scratch frames stay local
-media-sourcing/raw
-media-sourcing/frames
-media-sourcing/flux/video
-media-sourcing/flux/keyframes/*.png

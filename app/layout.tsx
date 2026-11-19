@@ -1,32 +1,62 @@
 import type { Metadata, Viewport } from "next";
-import { Inter_Tight } from "next/font/google";
-import { copy } from "@/content/copy";
+import { MotionProvider } from "@tum.ai/ui-kit";
+import { SkipLink } from "@tum.ai/ui-kit/shell";
+import { EVENT_NAME, hero, SITE_URL } from "@/content/event";
 import "./globals.css";
 
-const inter = Inter_Tight({ subsets: ["latin"], weight: ["300", "400", "500", "600"], variable: "--font-inter-tight" });
+const title = `${EVENT_NAME} San Francisco | ${hero.tagline}`;
+const description =
+  "TUM.ai, Europe's leading student AI initiative, brings a summit and a hackathon to San Francisco: German founders, operators and investors who built in the Bay, and Munich's brightest students.";
 
+// Icons come from the file conventions in app/ (favicon.ico, icon.svg,
+// apple-icon.png), the social card from app/opengraph-image.tsx.
 export const metadata: Metadata = {
-  metadataBase: new URL(copy.meta.siteUrl),
-  title: copy.meta.title,
-  description: copy.meta.description,
-  openGraph: { title: copy.meta.title, description: copy.meta.description, type: "website" },
-  twitter: { card: "summary_large_image", title: copy.meta.title, description: copy.meta.description },
+  metadataBase: new URL(SITE_URL),
+  title,
+  description,
+  applicationName: EVENT_NAME,
+  keywords: [
+    "TUM.ai",
+    "TUM.ai Summit",
+    "San Francisco",
+    "hackathon",
+    "AI",
+    "German founders",
+    "Technical University of Munich",
+    "Bay Area",
+  ],
+  alternates: { canonical: "/" },
+  robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: EVENT_NAME,
+    locale: "en_US",
+    title,
+    description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
 };
 
-export const viewport: Viewport = { themeColor: "#0E0E0C" };
-
-// Runs before first paint: decides motion mode and whether the intro plays (first visit per session).
-const boot = `(function(){try{var d=document.documentElement,rm=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!rm){d.classList.add('motion');if(!sessionStorage.getItem('intro'))d.dataset.intro='play';}}catch(e){}})()`;
+// Browser chrome that reads theme-color uses the brand black of the hero.
+export const viewport: Viewport = {
+  themeColor: "#0d0214",
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: boot }} />
-      </head>
-      <body className="font-sans">
-        {children}
-        <div className="grain" aria-hidden />
+    <html lang="en">
+      <body>
+        <MotionProvider>
+          <div id="app-root" data-tone="paper">
+            <SkipLink />
+            {children}
+          </div>
+        </MotionProvider>
       </body>
     </html>
   );

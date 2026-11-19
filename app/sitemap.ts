@@ -1,7 +1,5 @@
 import type { MetadataRoute } from "next";
-import { copy } from "@/content/copy";
-
-const SITE_URL = copy.meta.siteUrl;
+import { SITE_URL } from "@/content/event";
 
 export const dynamic = "force-static";
 
