@@ -16,6 +16,9 @@ export const SITE_URL = "https://summit.tum-ai.com";
 
 export const EHL_URL = "https://ehl.gg";
 
+// Attendee sign-up.
+export const SIGNUP_URL = "https://luma.com/0qlwf7ti";
+
 export const hero = {
   title: EVENT_NAME,
   tagline: "Overengineered. Overregulated. Still world class.",
@@ -86,7 +89,8 @@ export const partners: LogoItem[] = [
   { name: "Modal", src: asset("/logos/modal.svg"), href: "https://modal.com", aspectRatio: 187 / 35 },
   { name: "Cognition", src: asset("/logos/cognition.svg"), href: "https://cognition.ai", aspectRatio: 1, wordmark: "Cognition" },
   { name: "Headline", src: asset("/logos/headline.svg"), href: "https://headline.com", aspectRatio: 217 / 378, wordmark: "Headline" },
-  { name: "Tenor", src: asset("/logos/tenor.svg"), href: "https://heytenor.com", aspectRatio: 825 / 172 },
+  { name: "Dryft", src: asset("/logos/dryft.png"), href: "https://dryft.ai", aspectRatio: 498 / 130 },
+  { name: "Attention", src: asset("/logos/attention.svg"), href: "https://www.attention.com", aspectRatio: 70.9394 / 13.05 },
 ];
 
 export type Person = {
@@ -99,10 +103,10 @@ export type Person = {
 // Photos live in /public/people.
 export const speakers: Person[] = [
   {
-    name: "Hamze Al-Zamkan",
-    byline: "Founder, Tenor",
-    image: asset("/people/Hamze.png"),
-    linkedin: "https://www.linkedin.com/in/hamze-al-zamkan/",
+    name: "Leonhard Spiegelberg",
+    byline: "Chalk",
+    image: asset("/people/Leonhard.jpg"),
+    linkedin: "https://www.linkedin.com/in/leonhard-spiegelberg/",
   },
 ];
 

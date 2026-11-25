@@ -21,6 +21,7 @@ import {
   people,
   CONTACT_EMAIL,
   EVENT_NAME,
+  SIGNUP_URL,
   cta,
   hero,
   mailto,
@@ -52,7 +53,7 @@ export default function Page() {
           { href: "#people", label: "People" },
           { href: "#contact", label: "Contact" },
         ]}
-        cta={{ href: partnerMail, label: "Become a partner" }}
+        cta={{ href: SIGNUP_URL, label: "Sign up" }}
       />
 
       <main id="main-content" tabIndex={-1}>
@@ -60,7 +61,8 @@ export default function Page() {
           title={hero.title}
           tagline={hero.tagline}
           lead={hero.lead}
-          cta={{ href: partnerMail, label: "Become a partner" }}
+          cta={{ href: SIGNUP_URL, label: "Sign up on Luma" }}
+          secondaryCta={{ href: partnerMail, label: "Become a partner" }}
           partners={partners}
         />
 
@@ -142,6 +144,7 @@ export default function Page() {
             id: "event",
             title: "Event",
             links: [
+              { href: SIGNUP_URL, label: "Sign up", external: true },
               { href: "#format", label: "Format" },
               { href: "#why-now", label: "Why now" },
               { href: "#people", label: "People" },

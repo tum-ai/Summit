@@ -8,13 +8,14 @@ type SfHeroProps = {
   tagline: string;
   lead: string;
   cta: { href: string; label: string };
+  secondaryCta?: { href: string; label: string };
   partners: LogoItem[];
 };
 
 // Home-page hero as on tum-ai.com: the photo sits inside the logomark
 // (an inline mask, since the CSS pipeline drops url() rules), the partner
 // row closes the band. Placement lives in globals.css.
-export function SfHero({ title, tagline, lead, cta, partners }: SfHeroProps) {
+export function SfHero({ title, tagline, lead, cta, secondaryCta, partners }: SfHeroProps) {
   return (
     <Section
       tone="night"
@@ -58,6 +59,11 @@ export function SfHero({ title, tagline, lead, cta, partners }: SfHeroProps) {
             <ButtonLink href={cta.href} size="lg" arrow="right">
               {cta.label}
             </ButtonLink>
+            {secondaryCta ? (
+              <ButtonLink href={secondaryCta.href} size="lg" variant="secondary">
+                {secondaryCta.label}
+              </ButtonLink>
+            ) : null}
           </Actions>
         </div>
 
