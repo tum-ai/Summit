@@ -1,4 +1,4 @@
-import type { LogoItem, StatItem } from "@tum.ai/ui-kit";
+import type { LogoItem } from "@tum.ai/ui-kit";
 import { asset } from "@/lib/asset";
 
 // All page copy and data. Anything marked TODO is a placeholder to confirm.
@@ -20,67 +20,11 @@ export const EHL_URL = "https://ehl.gg";
 export const SIGNUP_URL = "https://luma.com/0qlwf7ti";
 
 export const hero = {
-  title: EVENT_NAME,
-  tagline: "Overengineered. Overregulated. Still world class.",
-  lead: "For decades, Germany's best engineers moved to the Bay and built world-class companies. The next generation is landing right now.",
+  eyebrow: "A TUM.ai Summit",
+  title: "Momentum",
+  tagline: "Velocity × Mass.",
+  lead: "Germany has the mass. San Francisco has the velocity. TUM.ai is building the bridge between them, and bringing both into one room.",
 };
-
-// Munich–Bay figures. Sources:
-// - Unicorn value abroad vs at home, US share: Dealroom German Diaspora Index
-//   (dealroom.co/resources/german-diaspora-index-vs-home, .../german-diaspora-index-founder-flows; live data)
-// - Google check: Wikipedia, "Andy Bechtolsheim" (TUM electrical engineering, Sun 1982, Google Sept 1998)
-// - Start-ups 2025: TUM press release, 26 Jun 2026 ("Presidential award for space start-up")
-export const stats: StatItem[] = [
-  {
-    value: "$342.5B",
-    count: true,
-    label: "In unicorns German founders built abroad",
-    description: "More than twice the $144.7B they built at home.",
-  },
-  {
-    value: 33,
-    suffix: "%",
-    label: "Of German-founded unicorns were built in the US",
-    description: "Only 40% were built in Germany.",
-  },
-  {
-    value: "$100K",
-    label: "Google's first check",
-    description: "Written in 1998 by TUM alumnus Andy Bechtolsheim, who co-founded Sun Microsystems.",
-  },
-  {
-    value: 115,
-    label: "Start-ups founded at TUM in 2025",
-    description: "A new record. The next wave is on its way.",
-  },
-];
-
-export const tracks = [
-  {
-    id: "summit",
-    eyebrow: "Track 01",
-    title: "Summit",
-    lead: "Talks and panels with German founders, operators and investors who built in the Bay.",
-    items: [
-      "Keynotes from founders who made the move",
-      "Panels on building, hiring and fundraising across both ecosystems",
-      "Curated networking with students, founders and investors",
-    ],
-    cta: { label: "Pitch a talk", subject: `Speaking at the ${EVENT_NAME}` },
-  },
-  {
-    id: "hackathon",
-    eyebrow: "Track 02",
-    title: "Hackathon",
-    lead: "Builders from TUM.ai and the Bay Area ship real products in one weekend.",
-    items: [
-      "Challenges set by partner companies",
-      "Mentors from partner teams on site",
-      "Prizes and a final demo in front of the summit audience",
-    ],
-    cta: { label: "Bring a challenge", subject: `Hackathon challenge for the ${EVENT_NAME}` },
-  },
-];
 
 // Logos live in /public/logos. Mark-only logos get a `wordmark` set beside them.
 export const partners: LogoItem[] = [
@@ -90,12 +34,15 @@ export const partners: LogoItem[] = [
   { name: "Cognition", src: asset("/logos/cognition.svg"), href: "https://cognition.ai", aspectRatio: 1, wordmark: "Cognition" },
   { name: "Headline", src: asset("/logos/headline.svg"), href: "https://headline.com", aspectRatio: 217 / 378, wordmark: "Headline" },
   { name: "Dryft", src: asset("/logos/dryft.png"), href: "https://dryft.ai", aspectRatio: 498 / 130 },
+  { name: "Chalk", src: asset("/logos/chalk.svg"), href: "https://chalk.ai", aspectRatio: 91 / 21 },
+  { name: "PangeAI", src: asset("/logos/pangeai.svg"), href: "https://pangeai.com", aspectRatio: 182 / 45 },
   { name: "Attention", src: asset("/logos/attention.svg"), href: "https://www.attention.com", aspectRatio: 70.9394 / 13.05 },
 ];
 
 export type Person = {
   name: string;
   byline: string;
+  roles: string[];
   image: string;
   linkedin: string;
 };
@@ -103,57 +50,138 @@ export type Person = {
 // Photos live in /public/people.
 export const speakers: Person[] = [
   {
-    name: "Leonhard Spiegelberg",
-    byline: "Chalk",
-    image: asset("/people/Leonhard.jpg"),
-    linkedin: "https://www.linkedin.com/in/leonhard-spiegelberg/",
+    name: "Johanna von der Leyen",
+    byline: "CEO & Co-Founder, PangeAI",
+    roles: ["Speaker"],
+    // Photo from her LinkedIn profile.
+    image: asset("/people/Johanna.jpg"),
+    linkedin: "https://www.linkedin.com/in/johanna-leyen/",
   },
 ];
 
-export const advisors: Person[] = [
+// Dashed speaker slots, split to either side of the confirmed speakers.
+export const SPEAKER_SLOTS_TBA = 2;
+
+// Team, in display order.
+export const people: Person[] = [
+  {
+    name: "Timur Hegwein",
+    byline: "Organizer, TUM.ai",
+    roles: ["Organizer"],
+    image: asset("/people/Timur.jpg"),
+    linkedin: "https://www.linkedin.com/in/timur-hegwein-9b2948332/",
+  },
+  {
+    name: "Jakob Liebig",
+    byline: "Organizer, TUM.ai",
+    roles: ["Organizer"],
+    image: asset("/people/Jakob.jpg"),
+    linkedin: "https://www.linkedin.com/in/jakob-liebig/",
+  },
   {
     name: "Tim Saval",
     byline: "Founder & Investor",
-    image: asset("/people/Tim.png"),
+    roles: ["Organizer", "Advisor"],
+    image: asset("/people/Tim.jpg"),
     linkedin: "https://www.linkedin.com/in/timsaval/",
   },
   {
-    name: "Mike Mahlkow",
-    byline: "Founder & Investor",
-    image: asset("/people/Mike.jpg"),
-    linkedin: "https://www.linkedin.com/in/mikemahlkow/",
+    name: "Leonhard Spiegelberg",
+    byline: "Chalk",
+    roles: ["Organizer"],
+    image: asset("/people/Leonhard.jpg"),
+    linkedin: "https://www.linkedin.com/in/leonhard-spiegelberg/",
   },
-];
-
-export const jury: Person[] = [
   {
     name: "Luis Schmitz",
     byline: "Headline",
-    image: asset("/people/Luis.png"),
+    roles: ["Jury"],
+    image: asset("/people/Luis.jpg"),
     linkedin: "https://www.linkedin.com/in/luis-schmitz/",
   },
 ];
 
-export const organizers: Person[] = [
-  {
-    name: "Jakob Liebig",
-    byline: "Organizer, TUM.ai",
-    image: asset("/people/Jakob.png"),
-    linkedin: "https://www.linkedin.com/in/jakob-liebig/",
-  },
-  {
-    name: "Timur Hegwein",
-    byline: "Organizer, TUM.ai",
-    image: asset("/people/Timur.jpg"),
-    linkedin: "https://www.linkedin.com/in/timur-hegwein-9b2948332/",
-  },
+// Universities whose students are joining. Logos in /public/logos/unis (Wikimedia Commons).
+export const universities: LogoItem[] = [
+  { name: "Technical University of Munich", src: asset("/logos/unis/tum.svg"), href: "https://www.tum.de/en", aspectRatio: 408.16 / 212.47 },
+  { name: "UC Berkeley", src: asset("/logos/unis/berkeley.svg"), href: "https://www.berkeley.edu", aspectRatio: 215.125 / 67.59 },
+  { name: "Stanford University", src: asset("/logos/unis/stanford.svg"), href: "https://www.stanford.edu", aspectRatio: 640 / 134.11 },
 ];
 
-export const people = [
-  { id: "speakers", role: "Speaker", people: speakers },
-  { id: "advisors", role: "Advisor", people: advisors },
-  { id: "jury", role: "Jury", people: jury },
-  { id: "organizers", role: "Organizer", people: organizers },
+// Agenda, Friday 4th to Tuesday 8th, placed on the day slots of the printed
+// agenda. `col` is the first slot (1 = morning … 5 = evening), `span` how many
+// it covers. Times only where they are fixed. `hack` marks the hackathon bar:
+// "start" and "end" get a rounded edge on that side, the overnight cut stays square.
+export const agendaSlots = ["Morning", "Lunch", "Afternoon", "Dinner", "Evening"];
+
+// Event types, colour-coded in the agenda. The hackathon itself is `hack`.
+export type AgendaKind = "stage" | "visit" | "social";
+export const agendaKinds: { kind: AgendaKind | "hack"; label: string }[] = [
+  { kind: "hack", label: "Hackathon" },
+  { kind: "stage", label: "On stage" },
+  { kind: "visit", label: "Office visits & workshops" },
+  { kind: "social", label: "Dinners & parties" },
+];
+
+export type AgendaItem = {
+  title: string;
+  kind?: AgendaKind;
+  time?: string;
+  col: number;
+  span?: number;
+  hack?: "start" | "end";
+  // Moments inside the hackathon bar, e.g. dinner on Saturday.
+  inside?: { title: string; col: number }[];
+};
+export type AgendaDay = { day: string; long: string; items: AgendaItem[] };
+
+export const agenda: AgendaDay[] = [
+  { day: "Fri 4", long: "Friday 4", items: [{ title: "Headline office visit", kind: "visit", col: 3, span: 2 }] },
+  {
+    day: "Sat 5",
+    long: "Saturday 5",
+    items: [
+      { title: "Opening ceremony & speakers", kind: "stage", time: "10:00", col: 1 },
+      { title: "Challenge presentations", kind: "stage", col: 2 },
+      {
+        title: "Hacking starts, with tech mentoring",
+        time: "13:00",
+        col: 3,
+        span: 3,
+        hack: "start",
+        inside: [{ title: "Dinner & side quest", col: 4 }],
+      },
+    ],
+  },
+  {
+    day: "Sun 6",
+    long: "Sunday 6",
+    items: [
+      { title: "Hacking & tech mentoring", time: "17:00", col: 1, span: 3, hack: "end" },
+      { title: "Prize ceremony", kind: "stage", col: 4 },
+      { title: "Afterparty", kind: "social", col: 5 },
+    ],
+  },
+  {
+    day: "Mon 7",
+    long: "Monday 7",
+    items: [
+      { title: "Office visits & workshops", kind: "visit", col: 2, span: 2 },
+      { title: "VC dinner", kind: "social", col: 4 },
+    ],
+  },
+  { day: "Tue 8", long: "Tuesday 8", items: [{ title: "Office visits & workshops", kind: "visit", col: 2, span: 3 }] },
+];
+
+// Hackathon challenges. `partner` is the name in `partners` above; null is a
+// slot for a partner still to be announced. Challenge and prize stay empty
+// until announced.
+export type Challenge = { partner: string | null; challenge?: string; prize?: string };
+export const challenges: Challenge[] = [
+  { partner: "Cognition" },
+  { partner: "Modal" },
+  { partner: null },
+  { partner: null },
 ];
 
 export const cta = {

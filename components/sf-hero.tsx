@@ -4,6 +4,7 @@ import type { LogoItem } from "@tum.ai/ui-kit";
 import { asset } from "@/lib/asset";
 
 type SfHeroProps = {
+  eyebrow?: string;
   title: string;
   tagline: string;
   lead: string;
@@ -15,7 +16,7 @@ type SfHeroProps = {
 // Home-page hero as on tum-ai.com: the photo sits inside the logomark
 // (an inline mask, since the CSS pipeline drops url() rules), the partner
 // row closes the band. Placement lives in globals.css.
-export function SfHero({ title, tagline, lead, cta, secondaryCta, partners }: SfHeroProps) {
+export function SfHero({ eyebrow, title, tagline, lead, cta, secondaryCta, partners }: SfHeroProps) {
   return (
     <Section
       tone="night"
@@ -42,6 +43,11 @@ export function SfHero({ title, tagline, lead, cta, secondaryCta, partners }: Sf
 
       <Container className="flex flex-1 flex-col">
         <div>
+          {eyebrow ? (
+            <p className="mb-4 text-sm font-medium uppercase tracking-[0.2em] text-fg/70 motion-safe:animate-fade md:mb-6">
+              {eyebrow}
+            </p>
+          ) : null}
           <h1 id="hero-title" className="text-display-xl text-highlight">
             <SplitWords delay={160}>{title}</SplitWords>
           </h1>
@@ -69,17 +75,14 @@ export function SfHero({ title, tagline, lead, cta, secondaryCta, partners }: Sf
 
         <div className="mt-auto pt-16 pb-8 [animation-delay:1000ms] motion-safe:animate-fade md:pt-24 md:pb-10">
           <div className="flex flex-col gap-6 border-fg/15 md:border-t md:pt-8 lg:flex-row lg:items-center lg:gap-12">
-            <Text size="meta" emphasis="subtle" className="shrink-0">
-              Partners include
-            </Text>
             {/* The kit's LogoWall multiplies logos into light bands; on this dark
                 band they are set white instead, as on tum-ai.com. */}
             <ul
               aria-label="Partners"
-              className="grid grid-cols-2 items-center gap-x-6 gap-y-5 sm:grid-cols-4 sm:gap-x-10 lg:flex lg:flex-1 lg:justify-between lg:gap-8"
+              className="[--logo-scale:0.6] sm:[--logo-scale:0.8] lg:[--logo-scale:1] grid flex-1 grid-cols-2 items-center gap-x-6 gap-y-8 sm:grid-cols-3 sm:gap-x-10 lg:flex lg:flex-wrap lg:justify-center lg:gap-x-16 lg:gap-y-12"
             >
               {partners.map((logo) => (
-                <li key={logo.name} className="flex h-7 items-center opacity-70 transition-opacity hover:opacity-100 md:h-8">
+                <li key={logo.name} className="flex h-12 items-center opacity-90 transition-opacity hover:opacity-100 lg:h-16">
                   <PartnerLogo logo={logo} />
                 </li>
               ))}
@@ -95,7 +98,7 @@ function PartnerLogo({ logo }: { logo: LogoItem }) {
   const ratio = logo.aspectRatio ?? 3;
   // Marks get the full row height; wide wordmarks are shortened so they
   // carry the same visual weight.
-  const height = logo.wordmark ? 28 : Math.round(Math.min(28, 22 * Math.sqrt(3.2 / ratio)));
+  const height = logo.wordmark ? 64 : Math.round(Math.min(64, 50 * Math.sqrt(3.2 / ratio)));
   const art = (
     <span className="inline-flex items-center gap-2 text-fg">
       <Image
@@ -105,9 +108,9 @@ function PartnerLogo({ logo }: { logo: LogoItem }) {
         height={height}
         unoptimized
         className="w-auto brightness-0 invert"
-        style={{ height }}
+        style={{ height: `calc(${height}px * var(--logo-scale, 1))` }}
       />
-      {logo.wordmark ? <span className="text-lg font-semibold tracking-[-0.02em]">{logo.wordmark}</span> : null}
+      {logo.wordmark ? <span className="font-semibold leading-none tracking-[-0.02em]" style={{ fontSize: "calc(2.5rem * var(--logo-scale, 1))" }}>{logo.wordmark}</span> : null}
     </span>
   );
   return logo.href ? (

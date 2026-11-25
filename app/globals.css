@@ -52,18 +52,3 @@ header nav[aria-label="Main"]::-webkit-scrollbar {
     transform: translateY(3%);
   }
 }
-
-/* People marquee (components/people-marquee.tsx): a swipeable scroller
-   without a visible scrollbar. */
-.sf-marquee {
-  scrollbar-width: none;
-  overscroll-behavior-x: contain;
-}
-.sf-marquee::-webkit-scrollbar {
-  display: none;
-}
-@media (prefers-reduced-motion: reduce) {
-  .sf-marquee-copy[aria-hidden] {
-    display: none;
-  }
-}
