@@ -16,18 +16,16 @@ export function AboutText() {
   return (
     <div className="space-y-6">
       <Text size="lead" emphasis="muted">
-        <Link href="https://www.tum-ai.com">TUM.ai</Link> is rooted at the{" "}
-        <Link href="https://www.tum.de/en">Technical University of Munich</Link>, <Em>Germany&apos;s MIT</Em>. We run
-        hackathons across Europe with the <Link href={EHL_URL}>European Hackathon League</Link>, back Munich&apos;s
-        brightest minds in <Link href="https://www.tum-ai.com/e-lab">our own incubator</Link>, and publish{" "}
-        <Link href="https://www.tum-ai.com/research">state-of-the-art research</Link> at venues like{" "}
-        <Em>ICLR and ICML</Em> with <Em>MIT, Cambridge, IBM</Em> and others. Our alumni join{" "}
-        <Em>top companies and startups</Em>, do research at leading institutions, and found{" "}
-        <Em>breakout YC companies</Em>.
+        <Link href="https://www.tum-ai.com">TUM.ai</Link> is Europe&apos;s leading student AI initiative, based at the{" "}
+        <Link href="https://www.tum.de/en">Technical University of Munich</Link>. We run hackathons across Europe through
+        the <Link href={EHL_URL}>European Hackathon League</Link>, back Munich&apos;s most ambitious builders in{" "}
+        <Link href="https://www.tum-ai.com/e-lab">our own incubator</Link>, and{" "}
+        <Link href="https://www.tum-ai.com/research">publish research</Link> at ICLR and ICML with MIT, Cambridge and
+        IBM. Our alumni go on to top companies and research labs, and some have founded breakout YC companies.
       </Text>
       <Text size="lead">
-        Now we&apos;re coming to San Francisco to <Em>connect two ecosystems</Em>: Munich&apos;s brightest students in
-        the same room as the Bay&apos;s sharpest builders, with founders and investors there to meet them early.
+        Momentum brings that network to San Francisco: <Em>Munich&apos;s best students in one room with the Bay&apos;s
+        best builders</Em>, and the founders and investors who want to meet them early.
       </Text>
     </div>
   );

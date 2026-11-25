@@ -42,7 +42,7 @@ export function Universities({ items }: { items: LogoItem[] }) {
         </ul>
         <div className="grid gap-6 border-t border-fg/10 pt-10 lg:col-span-12 lg:grid-cols-12 lg:gap-12">
           <Heading as="h3" size="md" className="lg:col-span-5">
-            Brought together by TUM.ai, Europe&apos;s leading student AI initiative.
+            Brought together by TUM.ai.
           </Heading>
           <div className="max-w-2xl lg:col-span-7">
             <AboutText />
