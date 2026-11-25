@@ -36,7 +36,9 @@ export const partners: LogoItem[] = [
   { name: "Dryft", src: asset("/logos/dryft.png"), href: "https://dryft.ai", aspectRatio: 498 / 130 },
   { name: "Chalk", src: asset("/logos/chalk.svg"), href: "https://chalk.ai", aspectRatio: 91 / 21 },
   { name: "PangeAI", src: asset("/logos/pangeai.svg"), href: "https://pangeai.com", aspectRatio: 182 / 45 },
-  { name: "Attention", src: asset("/logos/attention.svg"), href: "https://www.attention.com", aspectRatio: 70.9394 / 13.05 },
+  { name: "Proregal", src: asset("/logos/proregal.png"), href: "https://proregal.de", aspectRatio: 283 / 200, wordmark: "Proregal" },
+  // Attention Engineering (not attention.com, a different company). TODO: link once we have their site.
+  { name: "Attention Engineering", src: asset("/logos/attention.svg"), aspectRatio: 70.9394 / 13.05 },
 ];
 
 export type Person = {
@@ -181,11 +183,4 @@ export const challenges: Challenge[] = [
   { partner: "Cognition" },
   { partner: "Modal" },
   { partner: null },
-  { partner: null },
 ];
-
-export const cta = {
-  eyebrow: "Partner with us",
-  title: "We're looking for partners.",
-  lead: "Sponsors, speakers and companies who want to set a hackathon challenge. If you built your company between Munich and the Bay, we'd love to have you on board.",
-};

@@ -17,7 +17,7 @@ export function Universities({ items }: { items: LogoItem[] }) {
         </div>
         <ul
           aria-label="Universities"
-          className="grid grid-cols-3 items-center divide-x divide-fg/10 rounded-3xl border border-fg/10 lg:col-span-7"
+          className="grid grid-cols-3 items-center lg:col-span-7"
         >
           {items.map((u) => {
             const ratio = u.aspectRatio ?? 3;

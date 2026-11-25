@@ -1,7 +1,5 @@
 import {
-  ButtonLink,
   Container,
-  CtaBand,
   Section,
   SectionHeader,
   TextLink,
@@ -23,7 +21,6 @@ import {
   CONTACT_EMAIL,
   EVENT_NAME,
   SIGNUP_URL,
-  cta,
   hero,
   mailto,
   partners,
@@ -51,7 +48,6 @@ export default function Page() {
           { href: "#challenges", label: "Challenges" },
           { href: "#agenda", label: "Agenda" },
           { href: "#people", label: "People" },
-          { href: "#contact", label: "Contact" },
         ]}
         cta={{ href: SIGNUP_URL, label: "Sign up" }}
       />
@@ -97,22 +93,6 @@ export default function Page() {
             <PeopleGrid people={people} />
           </Container>
         </Section>
-
-        <CtaBand
-          id="contact"
-          variant="band"
-          tone="violet"
-          mark
-          titleId="contact-title"
-          eyebrow={cta.eyebrow}
-          title={cta.title}
-          lead={cta.lead}
-          actions={
-            <ButtonLink href={partnerMail} variant="inverse" arrow="right">
-              {CONTACT_EMAIL}
-            </ButtonLink>
-          }
-        />
       </main>
 
       <Footer

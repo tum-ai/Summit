@@ -35,7 +35,7 @@ export function Challenges({ items, logos, className }: { items: Challenge[]; lo
           title="Set by the partners."
           lead="Each partner sets a challenge for the hackathon, with its own prize. Details follow soon."
         />
-        <ul className="mt-12 grid border-y border-fg/12 sm:grid-cols-2 lg:grid-cols-[1.6fr_1.6fr_1fr_1fr]">
+        <ul className="mt-12 grid border-y border-fg/12 sm:grid-cols-2 lg:grid-cols-[1.6fr_1.6fr_1fr]">
           {items.map((c, i) => {
             const logo = logos.find((l) => l.name === c.partner);
             return (
