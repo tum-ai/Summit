@@ -47,10 +47,19 @@ export type Person = {
   roles: string[];
   image: string;
   linkedin: string;
+  // Headline speaker: the large tile in the middle of the speaker row.
+  featured?: boolean;
 };
 
 // Photos live in /public/people.
 export const speakers: Person[] = [
+  {
+    name: "Mike Mahlkow",
+    byline: "2x YC Founder",
+    roles: ["Speaker"],
+    image: asset("/people/Mike.jpg"),
+    linkedin: "https://www.linkedin.com/in/mikemahlkow/",
+  },
   {
     name: "Johanna von der Leyen",
     byline: "CEO & Co-Founder, PangeAI",
@@ -67,6 +76,7 @@ export const speakers: Person[] = [
     // ("Nico Rosberg-008 (22964167435).jpg"). Swap for an official headshot when we get one.
     image: asset("/people/Nico.jpg"),
     linkedin: "https://www.linkedin.com/in/nicorosberg/",
+    featured: true,
   },
   {
     name: "Moritz Stephan",
@@ -76,10 +86,18 @@ export const speakers: Person[] = [
     image: asset("/people/Moritz.jpg"),
     linkedin: "https://www.linkedin.com/in/moritz-stephan/",
   },
+  {
+    name: "Leonie Freisinger",
+    byline: "CTO & Co-Founder, Dryft",
+    roles: ["Speaker"],
+    // Photo from dryft.ai/team.
+    image: asset("/people/Leonie.jpg"),
+    linkedin: "https://www.linkedin.com/in/leonie-freisinger/",
+  },
 ];
 
-// Dashed speaker slots, split to either side of the confirmed speakers.
-export const SPEAKER_SLOTS_TBA = 2;
+// Shows "More speakers to be announced." under the speakers.
+export const MORE_SPEAKERS_TBA = true;
 
 // Team, in display order.
 export const people: Person[] = [

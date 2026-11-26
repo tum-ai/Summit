@@ -17,7 +17,7 @@ import {
   people,
   speakers,
   universities,
-  SPEAKER_SLOTS_TBA,
+  MORE_SPEAKERS_TBA,
   CONTACT_EMAIL,
   EVENT_NAME,
   SIGNUP_URL,
@@ -70,7 +70,7 @@ export default function Page() {
         <Section id="speakers" tone="lavender">
           <Container>
             <SectionHeader eyebrow="Speakers" title="On stage" />
-            <SpeakerGrid speakers={speakers} tba={SPEAKER_SLOTS_TBA} />
+            <SpeakerGrid speakers={speakers} more={MORE_SPEAKERS_TBA} />
           </Container>
         </Section>
 

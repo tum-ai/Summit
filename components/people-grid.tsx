@@ -4,15 +4,16 @@ import type { Person } from "@/content/event";
 // Team: all five in one row on wide screens.
 const teamGrid = "mt-12 grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-5";
 
-function Card({ person }: { person: Person }) {
+function Card({ person, className, cardClassName }: { person: Person; className?: string; cardClassName?: string }) {
   return (
-    <li className="relative">
+    <li className={`relative ${className ?? ""}`}>
       <PersonCard
         name={person.name}
         byline={person.byline}
         image={{ src: person.image, alt: "" }}
         sizes="(min-width: 64rem) 22vw, (min-width: 40rem) 30vw, 50vw"
         unoptimized
+        className={cardClassName}
       >
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
           {person.roles.map((r) => (
@@ -46,41 +47,39 @@ export function PeopleGrid({ people }: { people: Person[] }) {
   );
 }
 
-function TbaCard() {
-  return (
-    <li aria-hidden className="max-lg:hidden">
-      <div className="flex aspect-[4/5] items-center justify-center rounded-3xl border-2 border-dashed border-fg/20">
-        <span className="text-lg text-fg/40">TBA</span>
-      </div>
-    </li>
-  );
-}
-
 /**
- * Confirmed speakers in the middle, open slots split to either side as dashed
- * cards, across the full content width. Below desktop width only the confirmed
- * speakers show (one column on phones), with a line about the rest.
+ * Speakers in the order given, the featured one larger.
+ * Desktop: one row; the featured column is wider, so put that speaker in the
+ * middle of the list. Tablet: the featured speaker on a row of their own, the
+ * rest in one row below. Phones: one column, featured first.
  */
-export function SpeakerGrid({ speakers, tba }: { speakers: Person[]; tba: number }) {
-  const left = Math.floor(tba / 2);
-  const right = tba - left;
+export function SpeakerGrid({ speakers, more }: { speakers: Person[]; more: boolean }) {
+  const others = speakers.filter((p) => !p.featured).length;
+  const columns = speakers.map((p) => (p.featured ? "minmax(0,1.75fr)" : "minmax(0,1fr)")).join(" ");
   return (
     <>
       <ul
-        className="mx-auto mt-12 grid max-w-xs grid-cols-1 gap-x-8 gap-y-12 sm:max-w-none sm:grid-cols-[repeat(var(--speakers),minmax(0,1fr))] lg:grid-cols-[repeat(var(--cols),minmax(0,1fr))]"
-        style={{ "--speakers": speakers.length, "--cols": speakers.length + tba } as React.CSSProperties}
+        className="mx-auto mt-12 grid max-w-xs grid-cols-1 gap-x-6 gap-y-12 sm:max-w-none sm:grid-cols-[repeat(var(--others),minmax(0,1fr))] lg:grid-cols-[var(--columns)] lg:items-start"
+        style={{ "--others": Math.max(others, 1), "--columns": columns } as React.CSSProperties}
       >
-        {Array.from({ length: left }, (_, i) => (
-          <TbaCard key={`l-${i}`} />
-        ))}
-        {speakers.map((person) => (
-          <Card key={person.name} person={person} />
-        ))}
-        {Array.from({ length: right }, (_, i) => (
-          <TbaCard key={`r-${i}`} />
-        ))}
+        {speakers.map((person) =>
+          person.featured ? (
+            <Card
+              key={person.name}
+              person={person}
+              className="max-lg:order-first sm:max-lg:col-span-full sm:max-lg:mx-auto sm:max-lg:w-full sm:max-lg:max-w-sm"
+              cardClassName="sm:[&_h3]:text-heading-md"
+            />
+          ) : (
+            // Centre the smaller photos on the featured one, whatever the text
+            // below. Photos are 4:5, so the featured one (1.75 columns wide) is
+            // 0.9375 columns taller; half of that is 46.875% of a column, and a
+            // grid item's percentage margin resolves against its column width.
+            <Card key={person.name} person={person} className="lg:mt-[46.875%]" />
+          ),
+        )}
       </ul>
-      {tba > 0 && <p className="mt-6 text-center text-sm text-fg/50 lg:hidden">More speakers to be announced.</p>}
+      {more && <p className="mt-10 text-center text-sm text-fg/50">More speakers to be announced.</p>}
     </>
   );
 }
