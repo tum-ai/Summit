@@ -22,7 +22,7 @@ export function SfHero({ eyebrow, title, tagline, lead, cta, secondaryCta, partn
       tone="night"
       spacing="none"
       aria-labelledby="hero-title"
-      className="flex min-h-[100svh] flex-col overflow-clip pt-[calc(var(--header-height)+clamp(2rem,6vh,4rem))] md:pt-[calc(var(--header-height)+clamp(4rem,12vh,9rem))]"
+      className="flex min-h-[100svh] flex-col overflow-clip pt-[calc(var(--header-height)+clamp(2rem,6vh,4rem))] md:pt-[calc(var(--header-height)+clamp(2rem,6vh,5rem))] md:[@media(max-height:700px)]:pt-[calc(var(--header-height)+1rem)]"
     >
       <div aria-hidden className="sf-aperture-frame pointer-events-none absolute -z-10 aspect-[477/406] select-none">
         <div
@@ -57,11 +57,11 @@ export function SfHero({ eyebrow, title, tagline, lead, cta, secondaryCta, partn
           <Text
             size="lead"
             emphasis="muted"
-            className="mt-8 max-w-[34rem] [animation-delay:620ms] motion-safe:animate-rise-sm md:mt-10"
+            className="mt-6 max-w-[34rem] [animation-delay:620ms] motion-safe:animate-rise-sm md:mt-8"
           >
             {lead}
           </Text>
-          <Actions className="mt-10 [animation-delay:760ms] motion-safe:animate-rise-sm md:mt-12">
+          <Actions className="mt-8 [animation-delay:760ms] motion-safe:animate-rise-sm md:mt-10 md:[@media(max-height:700px)]:mt-6">
             <ButtonLink href={cta.href} size="lg" arrow="right">
               {cta.label}
             </ButtonLink>
@@ -73,16 +73,17 @@ export function SfHero({ eyebrow, title, tagline, lead, cta, secondaryCta, partn
           </Actions>
         </div>
 
-        <div className="mt-auto pt-16 pb-8 [animation-delay:1000ms] motion-safe:animate-fade md:pt-24 md:pb-10">
-          <div className="flex flex-col gap-6 border-fg/15 md:border-t md:pt-8 lg:flex-row lg:items-center lg:gap-12">
+        {/* Short screens: tighter, so both logo rows stay above the fold. */}
+        <div className="mt-auto pt-12 pb-8 [animation-delay:1000ms] motion-safe:animate-fade md:pt-14 md:pb-8 sm:[@media(max-height:820px)]:pt-8 sm:[@media(max-height:820px)]:pb-5">
+          <div className="flex flex-col gap-6 border-fg/15 md:border-t md:pt-8 md:[@media(max-height:700px)]:pt-4 lg:flex-row lg:items-center lg:gap-12">
             {/* The kit's LogoWall multiplies logos into light bands; on this dark
                 band they are set white instead, as on tum-ai.com. */}
             <ul
               aria-label="Partners"
-              className="[--logo-scale:0.6] sm:[--logo-scale:0.8] lg:[--logo-scale:1] grid flex-1 grid-cols-2 items-center gap-x-6 gap-y-8 sm:grid-cols-3 sm:gap-x-10 lg:flex lg:flex-wrap lg:justify-center lg:gap-x-16 lg:gap-y-12"
+              className="[--logo-scale:0.6] sm:[--logo-scale:0.7] lg:[--logo-scale:0.85] sm:[@media(max-height:820px)]:[--logo-scale:0.6] grid flex-1 grid-cols-2 items-center gap-x-6 gap-y-8 sm:flex sm:flex-wrap sm:justify-center sm:gap-x-10 sm:gap-y-5 lg:gap-x-14 lg:gap-y-6"
             >
               {partners.map((logo) => (
-                <li key={logo.name} className="flex h-12 items-center opacity-90 transition-opacity hover:opacity-100 lg:h-16">
+                <li key={logo.name} className="flex h-[calc(4.5rem*var(--logo-scale))] items-center opacity-90 transition-opacity hover:opacity-100">
                   <PartnerLogo logo={logo} />
                 </li>
               ))}
@@ -98,7 +99,8 @@ function PartnerLogo({ logo }: { logo: LogoItem }) {
   const ratio = logo.aspectRatio ?? 3;
   // Marks get the full row height; wide wordmarks are shortened so they
   // carry the same visual weight.
-  const height = logo.wordmark ? 64 : Math.round(Math.min(64, 50 * Math.sqrt(3.2 / ratio)));
+  // Very wide lockups (e.g. Attention Engineering) get a floor so their type isn't tiny.
+  const height = logo.wordmark ? 64 : Math.round(Math.max(38, Math.min(64, 50 * Math.sqrt(3.2 / ratio))));
   const art = (
     <span className="inline-flex items-center gap-2 text-fg">
       <Image

@@ -28,17 +28,17 @@ export const hero = {
 
 // Logos live in /public/logos. Mark-only logos get a `wordmark` set beside them.
 export const partners: LogoItem[] = [
-  { name: "OpenAI", src: asset("/logos/openai.svg"), href: "https://openai.com", aspectRatio: 928 / 308 },
+  { name: "OpenAI", src: asset("/logos/openai.svg"), href: "https://openai.com", aspectRatio: 1157.66 / 257.88 },
   { name: "Antler", src: asset("/logos/antler.svg"), href: "https://www.antler.co", aspectRatio: 117 / 28 },
-  { name: "Modal", src: asset("/logos/modal.svg"), href: "https://modal.com", aspectRatio: 187 / 35 },
+  { name: "Modal", src: asset("/logos/modal.svg"), href: "https://modal.com", aspectRatio: 290 / 49.8582 },
   { name: "Cognition", src: asset("/logos/cognition.svg"), href: "https://cognition.ai", aspectRatio: 1, wordmark: "Cognition" },
   { name: "Headline", src: asset("/logos/headline.svg"), href: "https://headline.com", aspectRatio: 217 / 378, wordmark: "Headline" },
   { name: "Dryft", src: asset("/logos/dryft.png"), href: "https://dryft.ai", aspectRatio: 498 / 130 },
   { name: "Chalk", src: asset("/logos/chalk.svg"), href: "https://chalk.ai", aspectRatio: 91 / 21 },
   { name: "PangeAI", src: asset("/logos/pangeai.svg"), href: "https://pangeai.com", aspectRatio: 182 / 45 },
   { name: "Proregal", src: asset("/logos/proregal.png"), href: "https://proregal.de", aspectRatio: 283 / 200, wordmark: "Proregal" },
-  // Attention Engineering (not attention.com, a different company). TODO: link once we have their site.
-  { name: "Attention Engineering", src: asset("/logos/attention.svg"), aspectRatio: 70.9394 / 13.05 },
+  // Attention Engineering (attention.inc). Logo cut from the lockup they sent.
+  { name: "Attention Engineering", src: asset("/logos/attention.png"), href: "https://attention.inc", aspectRatio: 1528 / 148 },
 ];
 
 export type Person = {
