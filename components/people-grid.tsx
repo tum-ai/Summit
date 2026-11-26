@@ -48,7 +48,7 @@ export function PeopleGrid({ people }: { people: Person[] }) {
 
 function TbaCard() {
   return (
-    <li aria-hidden className="max-sm:hidden">
+    <li aria-hidden className="max-lg:hidden">
       <div className="flex aspect-[4/5] items-center justify-center rounded-3xl border-2 border-dashed border-fg/20">
         <span className="text-lg text-fg/40">TBA</span>
       </div>
@@ -58,7 +58,8 @@ function TbaCard() {
 
 /**
  * Confirmed speakers in the middle, open slots split to either side as dashed
- * cards. Phones show only the confirmed speakers and a line about the rest.
+ * cards, across the full content width. Below desktop width only the confirmed
+ * speakers show (one column on phones), with a line about the rest.
  */
 export function SpeakerGrid({ speakers, tba }: { speakers: Person[]; tba: number }) {
   const left = Math.floor(tba / 2);
@@ -66,8 +67,8 @@ export function SpeakerGrid({ speakers, tba }: { speakers: Person[]; tba: number
   return (
     <>
       <ul
-        className="mx-auto mt-12 grid max-w-xs grid-cols-1 gap-x-6 gap-y-12 sm:max-w-4xl sm:grid-cols-[repeat(var(--cols),minmax(0,1fr))]"
-        style={{ "--cols": speakers.length + tba } as React.CSSProperties}
+        className="mx-auto mt-12 grid max-w-xs grid-cols-1 gap-x-8 gap-y-12 sm:max-w-none sm:grid-cols-[repeat(var(--speakers),minmax(0,1fr))] lg:grid-cols-[repeat(var(--cols),minmax(0,1fr))]"
+        style={{ "--speakers": speakers.length, "--cols": speakers.length + tba } as React.CSSProperties}
       >
         {Array.from({ length: left }, (_, i) => (
           <TbaCard key={`l-${i}`} />
@@ -79,7 +80,7 @@ export function SpeakerGrid({ speakers, tba }: { speakers: Person[]; tba: number
           <TbaCard key={`r-${i}`} />
         ))}
       </ul>
-      {tba > 0 && <p className="mt-6 text-center text-sm text-fg/50 sm:hidden">More speakers to be announced.</p>}
+      {tba > 0 && <p className="mt-6 text-center text-sm text-fg/50 lg:hidden">More speakers to be announced.</p>}
     </>
   );
 }

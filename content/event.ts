@@ -59,6 +59,23 @@ export const speakers: Person[] = [
     image: asset("/people/Johanna.jpg"),
     linkedin: "https://www.linkedin.com/in/johanna-leyen/",
   },
+  {
+    name: "Nico Rosberg",
+    byline: "F1 World Champion, Founder of Rosberg Ventures",
+    roles: ["Speaker"],
+    // Photo: Renan Katayama, CC BY-SA 2.0, via Wikimedia Commons
+    // ("Nico Rosberg-008 (22964167435).jpg"). Swap for an official headshot when we get one.
+    image: asset("/people/Nico.jpg"),
+    linkedin: "https://www.linkedin.com/in/nicorosberg/",
+  },
+  {
+    name: "Moritz Stephan",
+    byline: "Founder, Hone",
+    roles: ["Speaker"],
+    // Hone press photo (via trendingtopics.eu).
+    image: asset("/people/Moritz.jpg"),
+    linkedin: "https://www.linkedin.com/in/moritz-stephan/",
+  },
 ];
 
 // Dashed speaker slots, split to either side of the confirmed speakers.
@@ -182,5 +199,6 @@ export type Challenge = { partner: string | null; challenge?: string; prize?: st
 export const challenges: Challenge[] = [
   { partner: "Cognition" },
   { partner: "Modal" },
+  { partner: "PangeAI" },
   { partner: null },
 ];

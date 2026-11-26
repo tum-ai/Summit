@@ -35,7 +35,15 @@ export function Challenges({ items, logos, className }: { items: Challenge[]; lo
           title="Set by the partners."
           lead="Each partner sets a challenge for the hackathon, with its own prize. Details follow soon."
         />
-        <ul className="mt-12 grid border-y border-fg/12 sm:grid-cols-2 lg:grid-cols-[1.6fr_1.6fr_1fr]">
+        {/* One row on wide screens: confirmed partners get the wide columns, open slots a narrow one. */}
+        <ul
+          className="mt-12 grid border-y border-fg/12 sm:grid-cols-2 lg:grid-cols-[var(--challenge-cols)]"
+          style={
+            {
+              "--challenge-cols": items.map((c) => (c.partner ? "minmax(0,1.6fr)" : "minmax(0,1fr)")).join(" "),
+            } as React.CSSProperties
+          }
+        >
           {items.map((c, i) => {
             const logo = logos.find((l) => l.name === c.partner);
             return (
