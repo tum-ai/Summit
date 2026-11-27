@@ -54,7 +54,6 @@ export default function Page() {
 
       <main id="main-content" tabIndex={-1}>
         <SfHero
-          eyebrow={hero.eyebrow}
           title={hero.title}
           tagline={hero.tagline}
           lead={hero.lead}
@@ -81,7 +80,7 @@ export default function Page() {
             <SectionHeader
               eyebrow="Agenda"
               title="Friday 4 to Tuesday 8."
-              lead="The hackathon runs from Saturday 13:00 to Sunday 17:00. Before and after: office visits, workshops and a VC dinner."
+              lead="It starts Friday with a welcome party at Headline HQ in the Presidio. The hackathon runs at Antler HQ from Saturday 13:00 to Sunday 17:00. After that: office visits, workshops and a VC dinner."
             />
             <Agenda days={agenda} />
           </Container>

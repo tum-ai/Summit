@@ -1,8 +1,17 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "summit.tum-ai.com" }],
+      "destination": "https://www.tum-ai.com/momentum/:path*",
+      "permanent": true
+    }
+  ],
+  "rewrites": [{ "source": "/momentum/:path*", "destination": "/:path*" }],
   "headers": [
     {
-      "source": "/opengraph-image",
+      "source": "/momentum/opengraph-image",
       "headers": [{ "key": "Content-Type", "value": "image/png" }]
     }
   ]

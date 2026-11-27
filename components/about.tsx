@@ -24,7 +24,7 @@ export function AboutText() {
         IBM. Our alumni go on to top companies and research labs, and some have founded breakout YC companies.
       </Text>
       <Text size="lead">
-        Momentum brings that network to San Francisco: <Em>Munich&apos;s best students in one room with the Bay&apos;s
+        momenTUM brings that network to San Francisco: <Em>Munich&apos;s best students in one room with the Bay&apos;s
         best builders</Em>, and the founders and investors who want to meet them early.
       </Text>
     </div>

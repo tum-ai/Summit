@@ -12,7 +12,7 @@ export const mailto = (subject: string) =>
 export const EVENT_NAME = "TUM.ai Summit";
 
 // Production origin, for canonical URLs and social cards.
-export const SITE_URL = "https://summit.tum-ai.com";
+export const SITE_URL = "https://www.tum-ai.com/momentum";
 
 export const EHL_URL = "https://ehl.gg";
 
@@ -20,25 +20,28 @@ export const EHL_URL = "https://ehl.gg";
 export const SIGNUP_URL = "https://luma.com/0qlwf7ti";
 
 export const hero = {
-  eyebrow: "A TUM.ai Summit",
-  title: "Momentum",
-  tagline: "Velocity × Mass.",
+  title: "momenTUM",
+  tagline: "Mass × Velocity.",
   lead: "Germany has the mass. San Francisco has the velocity. TUM.ai is building the bridge between them, and bringing both into one room.",
 };
 
 // Logos live in /public/logos. Mark-only logos get a `wordmark` set beside them.
+// Shown in this order: ranked by commitment and by how strong the brand is.
+// Entries without `src` show their name as text until a logo is added.
 export const partners: LogoItem[] = [
   { name: "OpenAI", src: asset("/logos/openai.svg"), href: "https://openai.com", aspectRatio: 1157.66 / 257.88 },
+  { name: "Rosberg Ventures", href: "https://www.rosbergventures.com" },
   { name: "Antler", src: asset("/logos/antler.svg"), href: "https://www.antler.co", aspectRatio: 117 / 28 },
+  { name: "Hone", href: "https://hone.com" },
   { name: "Modal", src: asset("/logos/modal.svg"), href: "https://modal.com", aspectRatio: 290 / 49.8582 },
   { name: "Cognition", src: asset("/logos/cognition.svg"), href: "https://cognition.ai", aspectRatio: 1, wordmark: "Cognition" },
+  { name: "PangeAI", src: asset("/logos/pangeai.svg"), href: "https://pangeai.com", aspectRatio: 182 / 45 },
+  { name: "Chalk", src: asset("/logos/chalk.svg"), href: "https://chalk.ai", aspectRatio: 91 / 21 },
   { name: "Headline", src: asset("/logos/headline.svg"), href: "https://headline.com", aspectRatio: 217 / 378, wordmark: "Headline" },
   { name: "Dryft", src: asset("/logos/dryft.png"), href: "https://dryft.ai", aspectRatio: 498 / 130 },
-  { name: "Chalk", src: asset("/logos/chalk.svg"), href: "https://chalk.ai", aspectRatio: 91 / 21 },
-  { name: "PangeAI", src: asset("/logos/pangeai.svg"), href: "https://pangeai.com", aspectRatio: 182 / 45 },
-  { name: "Proregal", src: asset("/logos/proregal.png"), href: "https://proregal.de", aspectRatio: 283 / 200, wordmark: "Proregal" },
   // Attention Engineering (attention.inc). Logo cut from the lockup they sent.
   { name: "Attention Engineering", src: asset("/logos/attention.png"), href: "https://attention.inc", aspectRatio: 1528 / 148 },
+  { name: "Proregal", src: asset("/logos/proregal.png"), href: "https://proregal.de", aspectRatio: 283 / 200, wordmark: "Proregal" },
 ];
 
 export type Person = {
@@ -173,7 +176,7 @@ export type AgendaItem = {
 export type AgendaDay = { day: string; long: string; items: AgendaItem[] };
 
 export const agenda: AgendaDay[] = [
-  { day: "Fri 4", long: "Friday 4", items: [{ title: "Headline office visit", kind: "visit", col: 3, span: 2 }] },
+  { day: "Fri 4", long: "Friday 4", items: [{ title: "Welcome party at Headline HQ in the Presidio", kind: "social", col: 4, span: 2 }] },
   {
     day: "Sat 5",
     long: "Saturday 5",

@@ -4,7 +4,7 @@ Landing page for the **TUM.ai Summit** in San Francisco. The event has two track
 with German founders, operators and investors who built in the Bay, and a hackathon where builders
 from TUM.ai and the Bay Area ship real products in one weekend.
 
-**Live:** https://summit.tum-ai.com
+**Live:** https://www.tum-ai.com/momentum (summit.tum-ai.com redirects there)
 
 ## Stack
 
@@ -71,8 +71,10 @@ if the site is ever served under a sub-path.
 
 Vercel deploys the site through its GitHub integration:
 
-- A push to `main` deploys to production at https://summit.tum-ai.com.
+- A push to `main` deploys to production, served at https://www.tum-ai.com/momentum.
 - A pull request or any other branch gets a preview deployment, linked on the PR.
 
-No environment variables are needed. `summit.tum-ai.com` is a CNAME to Vercel in the tum-ai.com
-zone, which is hosted on Netlify DNS.
+No environment variables are needed: the site builds under `/momentum` by default
+(`NEXT_PUBLIC_BASE_PATH=` builds it for the root). tum-ai.com proxies `/momentum/*` to this
+Vercel project's `.vercel.app` domain. `summit.tum-ai.com` is still a CNAME to Vercel in the
+tum-ai.com zone (Netlify DNS); `vercel.json` redirects it to https://www.tum-ai.com/momentum.

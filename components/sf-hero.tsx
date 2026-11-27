@@ -96,6 +96,15 @@ export function SfHero({ eyebrow, title, tagline, lead, cta, secondaryCta, partn
 }
 
 function PartnerLogo({ logo }: { logo: LogoItem }) {
+  // No artwork yet: set the name as a wordmark.
+  if (!logo.src) {
+    const name = (
+      <span className="font-semibold leading-none tracking-[-0.02em] text-fg" style={{ fontSize: "calc(2.5rem * var(--logo-scale, 1))" }}>
+        {logo.name}
+      </span>
+    );
+    return logo.href ? <Anchor href={logo.href} className="inline-flex">{name}</Anchor> : name;
+  }
   const ratio = logo.aspectRatio ?? 3;
   // Marks get the full row height; wide wordmarks are shortened so they
   // carry the same visual weight.
