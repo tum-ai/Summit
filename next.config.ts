@@ -1,9 +1,8 @@
 import type { NextConfig } from "next";
 
-// The site lives at https://www.tum-ai.com/momentum: tum-ai.com proxies /momentum/* here,
-// and summit.tum-ai.com redirects there (vercel.json). Build with NEXT_PUBLIC_BASE_PATH=
-// (empty) to serve from the root instead.
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "/momentum";
+// Optional sub-path for hosting under a prefix (e.g. "/momentum"). Unset on
+// Vercel and locally, so the site is served from the root.
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 const nextConfig: NextConfig = {
   output: "export",

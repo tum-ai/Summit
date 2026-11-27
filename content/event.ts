@@ -12,7 +12,7 @@ export const mailto = (subject: string) =>
 export const EVENT_NAME = "TUM.ai Summit";
 
 // Production origin, for canonical URLs and social cards.
-export const SITE_URL = "https://www.tum-ai.com/momentum";
+export const SITE_URL = "https://summit.tum-ai.com";
 
 export const EHL_URL = "https://ehl.gg";
 
