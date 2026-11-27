@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
   // lib/asset.ts reads this to prefix public files.
   env: { NEXT_PUBLIC_BASE_PATH: basePath },
   images: { unoptimized: true },
+  experimental: { agentUpgrade: "security" },
   turbopack: {
     rules: {
       "*.css": {
