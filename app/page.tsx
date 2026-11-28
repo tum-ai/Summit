@@ -18,6 +18,7 @@ import {
   speakers,
   universities,
   MORE_SPEAKERS_TBA,
+  SHOW_SPEAKERS,
   CONTACT_EMAIL,
   EVENT_NAME,
   SIGNUP_URL,
@@ -36,6 +37,9 @@ const logo = {
 
 const partnerMail = mailto(`Partnering with the ${EVENT_NAME}`);
 
+// Nav entry for the speakers section, left out while it's hidden.
+const speakersLink = SHOW_SPEAKERS ? [{ href: "#speakers", label: "Speakers" }] : [];
+
 export default function Page() {
   return (
     <>
@@ -44,7 +48,7 @@ export default function Page() {
         homeHref="#main-content"
         navigation={[
           { href: "#about", label: "About" },
-          { href: "#speakers", label: "Speakers" },
+          ...speakersLink,
           { href: "#challenges", label: "Challenges" },
           { href: "#agenda", label: "Agenda" },
           { href: "#people", label: "People" },
@@ -66,14 +70,17 @@ export default function Page() {
             agenda → the team → contact. Neighbouring bands never share a tone. */}
         <Universities items={universities} />
 
-        <Section id="speakers" tone="lavender">
-          <Container>
-            <SectionHeader eyebrow="Speakers" title="On stage" />
-            <SpeakerGrid speakers={speakers} more={MORE_SPEAKERS_TBA} />
-          </Container>
-        </Section>
+        {SHOW_SPEAKERS && (
+          <Section id="speakers" tone="lavender">
+            <Container>
+              <SectionHeader eyebrow="Speakers" title="On stage" />
+              <SpeakerGrid speakers={speakers} more={MORE_SPEAKERS_TBA} />
+            </Container>
+          </Section>
+        )}
 
-        <Challenges items={challenges} logos={partners} />
+        {/* Without the speakers, Challenges takes their tone so it doesn't match About. */}
+        <Challenges items={challenges} logos={partners} tone={SHOW_SPEAKERS ? "paper" : "lavender"} />
 
         <Section id="agenda" tone="night">
           <Container>
@@ -103,7 +110,7 @@ export default function Page() {
             title: "Event",
             links: [
               { href: SIGNUP_URL, label: "Sign up", external: true },
-                  { href: "#speakers", label: "Speakers" },
+              ...speakersLink,
               { href: "#challenges", label: "Challenges" },
               { href: "#agenda", label: "Agenda" },
               { href: "#people", label: "People" },

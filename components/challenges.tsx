@@ -26,9 +26,19 @@ function PartnerMark({ logo }: { logo?: LogoItem }) {
 }
 
 // One column per partner: who sets the challenge, what it is, what it wins.
-export function Challenges({ items, logos, className }: { items: Challenge[]; logos: LogoItem[]; className?: string }) {
+export function Challenges({
+  items,
+  logos,
+  tone = "paper",
+  className,
+}: {
+  items: Challenge[];
+  logos: LogoItem[];
+  tone?: React.ComponentProps<typeof Section>["tone"];
+  className?: string;
+}) {
   return (
-    <Section id="challenges" tone="paper" className={className}>
+    <Section id="challenges" tone={tone} className={className}>
       <Container>
         <SectionHeader
           eyebrow="Challenges"

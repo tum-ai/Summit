@@ -99,6 +99,9 @@ export const speakers: Person[] = [
 // Shows "More speakers to be announced." under the speakers.
 export const MORE_SPEAKERS_TBA = true;
 
+// Hides the speakers section and its nav links until it's ready.
+export const SHOW_SPEAKERS = false;
+
 // Team, in display order.
 export const people: Person[] = [
   {
