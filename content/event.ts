@@ -139,6 +139,70 @@ export const people: Person[] = [
     image: asset("/people/Luis.jpg"),
     linkedin: "https://www.linkedin.com/in/luis-schmitz/",
   },
+  {
+    name: "Younes Haddouti",
+    byline: "Head of Hackathon Organization, TUM.ai",
+    roles: ["Organizer"],
+    // Photo from his LinkedIn profile.
+    image: asset("/people/Younes.jpg"),
+    linkedin: "https://www.linkedin.com/in/younes-haddouti-b73b52293/",
+  },
+];
+
+// TUM.ai members helping run the summit, shown in their own panel under the team.
+// Photos in /public/people (from their LinkedIn profiles; Justin's from tum-ai.com).
+export const tumAiCrew: Person[] = [
+  {
+    name: "Duc Phung",
+    byline: "Head of Hackathon Organization",
+    roles: ["TUM.ai"],
+    image: asset("/people/Duc.jpg"),
+    linkedin: "https://www.linkedin.com/in/duc-viet-phung/",
+  },
+  {
+    name: "Elias Wahl",
+    byline: "Organizing Team",
+    roles: ["TUM.ai"],
+    image: asset("/people/Elias.jpg"),
+    linkedin: "https://www.linkedin.com/in/elias-wahl/",
+  },
+  {
+    name: "Inoussa Adouba",
+    byline: "Organizing Team",
+    roles: ["TUM.ai"],
+    image: asset("/people/Inoussa.jpg"),
+    linkedin: "https://www.linkedin.com/in/inoussa-adouba/",
+  },
+  {
+    name: "Justin Lanfermann",
+    byline: "Tech Lead",
+    roles: ["TUM.ai"],
+    image: asset("/people/Justin.jpg"),
+    linkedin: "https://www.linkedin.com/in/lanfermann/",
+  },
+  {
+    name: "Nico Kirchner",
+    byline: "Head of Legal",
+    roles: ["TUM.ai"],
+    image: asset("/people/NicoKirchner.jpg"),
+    linkedin: "https://www.linkedin.com/in/nico-kirchner-2952922a1/",
+  },
+  {
+    name: "Rafaela Somogyi",
+    byline: "Legal Team",
+    roles: ["TUM.ai"],
+    image: asset("/people/Rafaela.jpg"),
+    linkedin: "https://www.linkedin.com/in/rebeca-rafaela-somogyi-260a6b334/",
+  },
+  {
+    // TODO: confirm his full name (from the LinkedIn handle).
+    name: "Naga Harshith",
+    byline: "Marketing Lead",
+    roles: ["TUM.ai"],
+    // Cropped to 4:5 around him; he stands off-centre in the original.
+    image: asset("/people/Naga.jpg"),
+    linkedin: "https://www.linkedin.com/in/nagaharshith/",
+  },
 ];
 
 // Universities whose students are joining. Logos in /public/logos/unis (Wikimedia Commons).

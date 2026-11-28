@@ -9,6 +9,7 @@ import { Agenda } from "@/components/agenda";
 import { Challenges } from "@/components/challenges";
 import { PeopleGrid, SpeakerGrid } from "@/components/people-grid";
 import { SfHero } from "@/components/sf-hero";
+import { TumAiCrew } from "@/components/tum-ai-crew";
 import { Universities } from "@/components/universities";
 import { asset } from "@/lib/asset";
 import {
@@ -16,6 +17,7 @@ import {
   challenges,
   people,
   speakers,
+  tumAiCrew,
   universities,
   MORE_SPEAKERS_TBA,
   SHOW_SPEAKERS,
@@ -67,7 +69,8 @@ export default function Page() {
         />
 
         {/* Flow: claim (hero) → who's coming → on stage → challenges →
-            agenda → the team → contact. Neighbouring bands never share a tone. */}
+            agenda → the team → the TUM.ai crew → contact. Neighbouring bands
+            never share a tone. */}
         <Universities items={universities} />
 
         {SHOW_SPEAKERS && (
@@ -99,6 +102,8 @@ export default function Page() {
             <PeopleGrid people={people} />
           </Container>
         </Section>
+
+        <TumAiCrew people={tumAiCrew} />
       </main>
 
       <Footer

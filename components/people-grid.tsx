@@ -1,8 +1,8 @@
 import { PersonCard, Tag, TextLink } from "@tum.ai/ui-kit";
 import type { Person } from "@/content/event";
 
-// Team: all five in one row on wide screens.
-const teamGrid = "mt-12 grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-5";
+// Team: all six in one row on wide screens.
+const teamGrid = "mt-12 grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-6";
 
 function Card({ person, className }: { person: Person; className?: string }) {
   return (
