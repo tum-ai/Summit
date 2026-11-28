@@ -20,7 +20,7 @@ export const EHL_URL = "https://ehl.gg";
 export const SIGNUP_URL = "https://luma.com/0qlwf7ti";
 
 export const hero = {
-  title: "momenTUM",
+  title: "MomenTUM",
   tagline: "Mass × Velocity.",
   lead: "Germany has the mass. San Francisco has the velocity. TUM.ai is building the bridge between them, and bringing both into one room.",
 };
@@ -50,8 +50,6 @@ export type Person = {
   roles: string[];
   image: string;
   linkedin: string;
-  // Headline speaker: the large tile in the middle of the speaker row.
-  featured?: boolean;
 };
 
 // Photos live in /public/people.
@@ -79,7 +77,6 @@ export const speakers: Person[] = [
     // ("Nico Rosberg-008 (22964167435).jpg"). Swap for an official headshot when we get one.
     image: asset("/people/Nico.jpg"),
     linkedin: "https://www.linkedin.com/in/nicorosberg/",
-    featured: true,
   },
   {
     name: "Moritz Stephan",

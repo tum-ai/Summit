@@ -4,7 +4,7 @@ import type { Person } from "@/content/event";
 // Team: all five in one row on wide screens.
 const teamGrid = "mt-12 grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-5";
 
-function Card({ person, className, cardClassName }: { person: Person; className?: string; cardClassName?: string }) {
+function Card({ person, className }: { person: Person; className?: string }) {
   return (
     <li className={`relative ${className ?? ""}`}>
       <PersonCard
@@ -13,7 +13,6 @@ function Card({ person, className, cardClassName }: { person: Person; className?
         image={{ src: person.image, alt: "" }}
         sizes="(min-width: 64rem) 22vw, (min-width: 40rem) 30vw, 50vw"
         unoptimized
-        className={cardClassName}
       >
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
           {person.roles.map((r) => (
@@ -48,36 +47,21 @@ export function PeopleGrid({ people }: { people: Person[] }) {
 }
 
 /**
- * Speakers in the order given, the featured one larger.
- * Desktop: one row; the featured column is wider, so put that speaker in the
- * middle of the list. Tablet: the featured speaker on a row of their own, the
- * rest in one row below. Phones: one column, featured first.
+ * Speakers in the order given, all the same size: five to a row on desktop,
+ * three on tablets, one on phones. A row that isn't full is centred.
  */
 export function SpeakerGrid({ speakers, more }: { speakers: Person[]; more: boolean }) {
-  const others = speakers.filter((p) => !p.featured).length;
-  const columns = speakers.map((p) => (p.featured ? "minmax(0,1.75fr)" : "minmax(0,1fr)")).join(" ");
   return (
     <>
-      <ul
-        className="mx-auto mt-12 grid max-w-xs grid-cols-1 gap-x-6 gap-y-12 sm:max-w-none sm:grid-cols-[repeat(var(--others),minmax(0,1fr))] lg:grid-cols-[var(--columns)] lg:items-start"
-        style={{ "--others": Math.max(others, 1), "--columns": columns } as React.CSSProperties}
-      >
-        {speakers.map((person) =>
-          person.featured ? (
-            <Card
-              key={person.name}
-              person={person}
-              className="max-lg:order-first sm:max-lg:col-span-full sm:max-lg:mx-auto sm:max-lg:w-full sm:max-lg:max-w-sm"
-              cardClassName="sm:[&_h3]:text-heading-md"
-            />
-          ) : (
-            // Centre the smaller photos on the featured one, whatever the text
-            // below. Photos are 4:5, so the featured one (1.75 columns wide) is
-            // 0.9375 columns taller; half of that is 46.875% of a column, and a
-            // grid item's percentage margin resolves against its column width.
-            <Card key={person.name} person={person} className="lg:mt-[46.875%]" />
-          ),
-        )}
+      <ul className="mx-auto mt-12 flex max-w-xs flex-col gap-x-6 gap-y-12 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
+        {speakers.map((person) => (
+          // Widths leave room for the 1.5rem gaps between the cards.
+          <Card
+            key={person.name}
+            person={person}
+            className="sm:w-[calc((100%_-_3rem)/3)] lg:w-[calc((100%_-_6rem)/5)]"
+          />
+        ))}
       </ul>
       {more && <p className="mt-10 text-center text-sm text-fg/50">More speakers to be announced.</p>}
     </>
